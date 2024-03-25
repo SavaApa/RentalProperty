@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,13 +18,36 @@ import java.util.UUID;
 public class Role {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID role;
+
+    @Column(name = "role_name")
     private String roleName;
 
     @ManyToMany
     @JoinTable(name = "role_authority")
-
     private Set<Authority> authorities;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role1 = (Role) o;
+        return Objects.equals(role, role1.role) && Objects.equals(roleName, role1.roleName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, roleName);
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "role=" + role +
+                ", roleName='" + roleName + '\'' +
+                '}';
+    }
 }
 

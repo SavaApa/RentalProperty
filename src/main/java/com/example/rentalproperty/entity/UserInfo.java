@@ -30,6 +30,8 @@ public class UserInfo {
     @ManyToMany
     @JoinTable(name = "user_role")
     private Set<Role> roles;
+
+    @Column(name = "password")
     private String password;
 
     @Override
