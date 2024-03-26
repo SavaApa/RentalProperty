@@ -2,6 +2,7 @@ package com.example.rentalproperty.entity;
 
 import com.example.rentalproperty.entity.enums.TypeProperty;
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,6 +49,10 @@ public class Property {
     @ManyToOne
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
+
+    @ManyToOne
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
 
 
     @Override

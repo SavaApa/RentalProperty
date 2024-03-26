@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -34,4 +35,24 @@ public class Landlord {
 
     @OneToMany(mappedBy = "landlord")
     private Set<Property> properties;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Landlord landlord = (Landlord) o;
+        return numProperty == landlord.numProperty && Objects.equals(id, landlord.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, numProperty);
+    }
+
+    @Override
+    public String toString() {
+        return "Landlord{" +
+                "id=" + id +
+                ", numProperty=" + numProperty +
+                '}';
+    }
 }
