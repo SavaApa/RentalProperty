@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "LandlordS")
+@Table(name = "landlords")
 @NoArgsConstructor
 public class Landlord {
 

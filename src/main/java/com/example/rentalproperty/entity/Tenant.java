@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -34,4 +35,7 @@ public class Tenant {
 
     @OneToOne(mappedBy = "tenant")
     private Application application;
+
+    @OneToMany(mappedBy = "tenant")
+    private Set<Property> properties;
 }

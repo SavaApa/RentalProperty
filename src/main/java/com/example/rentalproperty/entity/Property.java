@@ -45,6 +45,11 @@ public class Property {
     @Column(name = "pets")
     private boolean pets;
 
+    @ManyToOne
+    @JoinColumn(name = "landlord_id")
+    private Landlord landlord;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
