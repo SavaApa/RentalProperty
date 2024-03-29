@@ -17,7 +17,7 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "u_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
@@ -27,15 +27,15 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
 

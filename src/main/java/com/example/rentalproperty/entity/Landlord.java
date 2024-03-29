@@ -18,7 +18,7 @@ public class Landlord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "l_id")
     private UUID id;
 
     @Column(name = "num_property")
@@ -30,11 +30,12 @@ public class Landlord {
     @Column(name = "num_free")
     private int numFree;
 
-    @OneToMany(mappedBy = "landlord")
+    @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY)
     private Set<Application> applications;
 
-    @OneToMany(mappedBy = "landlord")
+    @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY)
     private Set<Property> properties;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

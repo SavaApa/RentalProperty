@@ -18,22 +18,22 @@ import java.util.UUID;
 public class UserInfo {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "ui_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "email")
     private String email;
 
-    @OneToOne(mappedBy = "userInfo")
-    private User user;
-
-    @ManyToMany
-    @JoinTable(name = "user_role")
-    private Set<Role> roles;
-
     @Column(name = "password")
     private String password;
+
+    @OneToOne(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role")
+    private Set<Role> roles;
 
     @Override
     public boolean equals(Object o) {

@@ -21,7 +21,7 @@ public class Tenant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "t_id")
     private UUID id;
 
     @Column(name = "preference_district")
@@ -43,10 +43,10 @@ public class Tenant {
     @Column(name = "preference_property")
     private TypeProperty preferenceProperty;
 
-    @OneToOne(mappedBy = "tenant")
+    @OneToOne(mappedBy = "tenant", fetch = FetchType.LAZY)
     private Application application;
 
-    @OneToMany(mappedBy = "tenant")
+    @OneToMany(mappedBy = "tenant", fetch = FetchType.LAZY)
     private Set<Property> properties;
 
     @Override

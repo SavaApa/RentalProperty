@@ -19,14 +19,14 @@ import java.util.UUID;
 public class Role {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "r_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID role;
 
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_authority")
     private Set<Authority> authorities;
 

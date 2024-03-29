@@ -46,14 +46,13 @@ public class Property {
     @Column(name = "pets")
     private boolean pets;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
-
 
     @Override
     public boolean equals(Object o) {

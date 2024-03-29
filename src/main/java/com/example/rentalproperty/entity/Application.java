@@ -20,30 +20,30 @@ public class Application {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "ap_id")
     private UUID id;
 
     @Column(name = "began_date")
     private LocalDate beganDate;
 
-    @ManyToOne
-    @JoinColumn(name = "landlord_id")
-    private Landlord landlord;
-
-    @ManyToOne
-    @JoinColumn(name = "property_id")
-    private Property property;
-
-    @OneToOne
-    @JoinColumn(name = "tenant_id")
-    private Tenant tenant;
-
-    @OneToOne(mappedBy = "application")
-    private Contract contract;
-
     @Column(name = "application_status")
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landlord_id")
+    private Landlord landlord;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "property_id")
+    private Property property;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id")
+    private Tenant tenant;
+
+    @OneToOne(mappedBy = "application", fetch = FetchType.LAZY)
+    private Contract contract;
 
     @Override
     public boolean equals(Object o) {

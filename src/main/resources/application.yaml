@@ -3,6 +3,6 @@ spring:
     banner-mode: off
 
   datasource:
-    url: jdbc:mysql://localhost:3306/bankapp
+    url: jdbc:mysql://localhost:3306/rental
     username: root
     password: root

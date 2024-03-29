@@ -21,7 +21,7 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "pay_id")
     private UUID id;
 
     @Column(name = "amount")
@@ -30,13 +30,13 @@ public class Payment {
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
-    @OneToOne
-    @JoinColumn(name = "contract_id")
-    private Contract contract;
-
     @Column(name = "payment_status")
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contract_id")
+    private Contract contract;
 
     @Override
     public boolean equals(Object o) {

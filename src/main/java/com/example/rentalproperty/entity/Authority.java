@@ -18,14 +18,14 @@ import java.util.UUID;
 public class Authority {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "aut_id")
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name = "authority_name")
     private String authorityName;
 
-    @ManyToMany(mappedBy = "authorities")
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
     private Set<Role> roles;
 
     @Override

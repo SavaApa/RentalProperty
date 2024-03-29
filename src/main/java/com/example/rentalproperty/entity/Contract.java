@@ -19,7 +19,7 @@ public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "c_id")
     private UUID id;
 
     @Column(name = "start_date")
@@ -28,23 +28,23 @@ public class Contract {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id")
     private Application application;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_id")
     private Property property;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
 
-    @OneToOne(mappedBy = "contract")
+    @OneToOne(mappedBy = "contract", fetch = FetchType.LAZY)
     private Payment payment;
 
     @Override
