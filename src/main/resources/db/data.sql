@@ -9,8 +9,8 @@ VALUES (1, 'Downtown', 2, 1500.00, true, false, 'Apartment'),
 
 INSERT INTO properties (prop_id, address, price, type_property, num_rooms, district, parking_space, pets, landlord_id,
                         tenant_id)
-VALUES (1, '123 Main St, Downtown', 1200.00, 'Apartment', 2, 'Downtown', true, false, 1, 1),
-       (2, '456 Elm St, Suburbia', 1800.00, 'House', 3, 'Suburbia', true, true, 2, 2);
+VALUES (1, '123 Main St, Downtown', 1200.00, 'APARTMENT', 2, 'Downtown', true, false, 1, 1),
+       (2, '456 Elm St, Suburbia', 1800.00, 'PRIVATE_HOUSE', 3, 'Suburbia', true, true, 2, 2);
 
 INSERT INTO applications (ap_id, began_date, application_status, landlord_id, property_id, tenant_id)
 VALUES (1, '2024-03-15', 'ACCEPTED', 1, 1, 1),
