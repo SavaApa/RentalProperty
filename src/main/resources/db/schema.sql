@@ -86,8 +86,8 @@ CREATE TABLE IF NOT EXISTS users
     first_name   VARCHAR(255) NOT NULL,
     last_name    VARCHAR(255) NOT NULL,
     user_info_id INT          NOT NULL,
-    tenant_id    INT          NOT NULL,
-    landlord_id  INT          NOT NULL,
+    tenant_id    INT,
+    landlord_id  INT,
     FOREIGN KEY (user_info_id) REFERENCES user_info (ui_id),
     FOREIGN KEY (tenant_id) REFERENCES tenants (t_id),
     FOREIGN KEY (landlord_id) REFERENCES landlords (l_id)
