@@ -10,15 +10,15 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
   logging:
     level:
-     root: DEBAG
+     root: DEBUG
 
   sql:
     init:
       data-locations:
         classpath: db/data.sql
-      schema-locations:
-        classpath: db/schema.sql
+#      schema-locations:
+#        classpath: db/schema.sql
