@@ -14,11 +14,11 @@ spring:
 
   logging:
     level:
-     root: DEBUG
+     root: root
 
-  sql:
-    init:
-      data-locations:
-        classpath: db/data.sql
-#      schema-locations:
-#        classpath: db/schema.sql
+#  sql:
+#    init:
+#      data-locations:
+#        classpath: db/data.sql
+##      schema-locations:
+##        classpath: db/schema.sql
