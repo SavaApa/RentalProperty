@@ -3,6 +3,22 @@ spring:
     banner-mode: off
 
   datasource:
-    url: jdbc:mysql://localhost:3306/rental
+    url: jdbc:mysql://localhost:3306/rentalproperty
     username: root
     password: root
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  logging:
+    level:
+     root: DEBAG
+
+  sql:
+    init:
+      data-locations:
+        classpath: db/data.sql
+      schema-locations:
+        classpath: db/schema.sql
