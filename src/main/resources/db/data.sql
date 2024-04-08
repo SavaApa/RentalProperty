@@ -13,8 +13,8 @@ VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '123 Ma
        (UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')), '456 Elm St, Suburbia', 1800.00, 'PRIVATE_HOUSE', 3, 'Suburbia', true, true, UNHEX('fdd80989fb3546968c654a7d141c23e1'), UNHEX('fdd80989fb3546968c654a7d141c23e1'));
 
 INSERT INTO applications (ap_id, began_date, application_status, landlord_id, property_id, tenant_id)
-VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '2024-03-15', 'ACCEPTED', UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', ''))),
-       (UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')), '2024-03-20', 'REJECTED', UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')), UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')), UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')));
+VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '2024-03-15', 'ACCEPTED', UNHEX('5481891ddd4045f19844149e01f0c5bb'), UNHEX('5481891ddd4045f19844149e01f0c5bb'), UNHEX('5481891ddd4045f19844149e01f0c5bb')),
+       (UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')), '2024-03-20', 'REJECTED', UNHEX('fdd80989fb3546968c654a7d141c23e1'), UNHEX('fdd80989fb3546968c654a7d141c23e1'), UNHEX('fdd80989fb3546968c654a7d141c23e1'));
 
 INSERT INTO contracts (c_id, start_date, end_date, application_id, property_id, tenant_id, landlord_id)
 VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '2024-04-01', '2025-03-31', UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', ''))),
