@@ -1,16 +1,16 @@
 INSERT INTO landlords (l_id, num_property, rented_out, num_free)
-VALUES (UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), 3, 2, 1),
-       (UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')), 2, 1, 1);
+VALUES (UNHEX('5481891ddd4045f19844149e01f0c5bb'), 3, 2, 1),
+       (UNHEX('fdd80989fb3546968c654a7d141c23e1'), 2, 1, 1);
 
 INSERT INTO tenants (t_id, preference_district, preference_num_room, preference_max_rent, pet_friendly,
                      parking_required, preference_property)
-VALUES (UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), 'Downtown', 2, 1500.00, true, false, 'Apartment'),
-       (UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')), 'Suburbia', 3, 2000.00, false, true, 'House');
+VALUES (UNHEX('5481891ddd4045f19844149e01f0c5bb'), 'Downtown', 2, 1500.00, true, false, 'Apartment'),
+       (UNHEX('fdd80989fb3546968c654a7d141c23e1'), 'Suburbia', 3, 2000.00, false, true, 'House');
 
 INSERT INTO properties (prop_id, address, price, type_property, num_rooms, district, parking_space, pets, landlord_id,
                         tenant_id)
-VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '123 Main St, Downtown', 1200.00, 'APARTMENT', 2, 'Downtown', true, false, UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', ''))),
-       (UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')), '456 Elm St, Suburbia', 1800.00, 'PRIVATE_HOUSE', 3, 'Suburbia', true, true, UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')), UNHEX(REPLACE('fdd80989fb3546968c654a7d141c23e1', '-', '')));
+VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '123 Main St, Downtown', 1200.00, 'APARTMENT', 2, 'Downtown', true, false, UNHEX('5481891ddd4045f19844149e01f0c5bb'), UNHEX('5481891ddd4045f19844149e01f0c5bb')),
+       (UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')), '456 Elm St, Suburbia', 1800.00, 'PRIVATE_HOUSE', 3, 'Suburbia', true, true, UNHEX('fdd80989fb3546968c654a7d141c23e1'), UNHEX('fdd80989fb3546968c654a7d141c23e1'));
 
 INSERT INTO applications (ap_id, began_date, application_status, landlord_id, property_id, tenant_id)
 VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), '2024-03-15', 'ACCEPTED', UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891ddd4045f19844149e01f0c5bb', '-', ''))),
@@ -48,7 +48,6 @@ VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), UNHEX(R
 INSERT INTO user_role (user_id, role_id)
 VALUES (UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', '')), UNHEX(REPLACE('5481891d-dd40-45f1-9844-149e01f0c5bb', '-', ''))),
        (UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')), UNHEX(REPLACE('fdd80989-fb35-4696-8c65-4a7d141c23e1', '-', '')));
-
 
 
 
