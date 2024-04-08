@@ -44,7 +44,7 @@ public class Contract {
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
 
-    @OneToOne(mappedBy = "contract", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "contract", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Payment payment;
 
     @Override

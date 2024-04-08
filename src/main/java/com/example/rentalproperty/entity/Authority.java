@@ -25,7 +25,7 @@ public class Authority {
     @Column(name = "authority_name")
     private String authorityName;
 
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
     @Override

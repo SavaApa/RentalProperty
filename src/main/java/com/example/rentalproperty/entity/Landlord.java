@@ -30,10 +30,10 @@ public class Landlord {
     @Column(name = "num_free")
     private int numFree;
 
-    @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Application> applications;
 
-    @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Property> properties;
 
     @Override

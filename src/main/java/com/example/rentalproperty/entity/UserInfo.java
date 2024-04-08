@@ -28,7 +28,7 @@ public class UserInfo {
     @Column(name = "password")
     private String password;
 
-    @OneToOne(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userInfo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -42,7 +42,7 @@ public class Application {
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @OneToOne(mappedBy = "application", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Contract contract;
 
     @Override
