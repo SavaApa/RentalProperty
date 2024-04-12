@@ -6,6 +6,7 @@ import com.example.rentalproperty.service.TenantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -15,7 +16,7 @@ public class TenantServiceImpl implements TenantService {
     private final TenantRepository tenantRepository;
 
     @Override
-    public Tenant getTenantById(UUID id) {
-        return tenantRepository.getTenantById(id);
+    public Optional<Tenant> getTenantById(UUID id) {
+        return tenantRepository.findById(id);
     }
 }
