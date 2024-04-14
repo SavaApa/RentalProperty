@@ -16,7 +16,7 @@ public class TenantServiceImpl implements TenantService {
     private final TenantRepository tenantRepository;
 
     @Override
-    public Optional<Tenant> getTenantById(UUID id) {
-        return tenantRepository.findById(id);
+    public Tenant getTenantById(UUID id) {
+        return tenantRepository.getTenantById(id);
     }
 }

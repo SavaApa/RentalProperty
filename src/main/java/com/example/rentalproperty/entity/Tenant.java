@@ -1,6 +1,7 @@
 package com.example.rentalproperty.entity;
 
 import com.example.rentalproperty.entity.enums.TypeProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -43,9 +44,11 @@ public class Tenant {
     @Column(name = "preference_property")
     private TypeProperty preferenceProperty;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "tenant", fetch = FetchType.LAZY)
     private Application application;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tenant", fetch = FetchType.LAZY)
     private Set<Property> properties;
 
