@@ -1,5 +1,6 @@
 package com.example.rentalproperty.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -28,9 +29,11 @@ public class UserInfo {
     @Column(name = "password")
     private String password;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "userInfo", fetch = FetchType.LAZY)
     private User user;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role")
     private Set<Role> roles;

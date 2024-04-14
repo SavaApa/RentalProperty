@@ -1,5 +1,6 @@
 package com.example.rentalproperty.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,9 +31,11 @@ public class Landlord {
     @Column(name = "num_free")
     private int numFree;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Application> applications;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "landlord", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Property> properties;
 

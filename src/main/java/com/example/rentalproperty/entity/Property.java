@@ -1,6 +1,7 @@
 package com.example.rentalproperty.entity;
 
 import com.example.rentalproperty.entity.enums.TypeProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -46,10 +47,12 @@ public class Property {
     @Column(name = "pets")
     private boolean pets;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;

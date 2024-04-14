@@ -1,6 +1,7 @@
 package com.example.rentalproperty.entity;
 
 import com.example.rentalproperty.entity.enums.ApplicationStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -30,18 +31,22 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_id")
     private Property property;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "application", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Contract contract;
 

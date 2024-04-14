@@ -1,5 +1,6 @@
 package com.example.rentalproperty.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Authority {
     @Column(name = "authority_name")
     private String authorityName;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
