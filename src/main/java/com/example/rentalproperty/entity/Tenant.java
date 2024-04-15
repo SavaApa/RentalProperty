@@ -45,7 +45,7 @@ public class Tenant {
     private TypeProperty preferenceProperty;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "tenant", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "tenant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Application application;
 
     @JsonIgnore
