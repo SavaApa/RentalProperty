@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface TenantService {
     Tenant getTenantById(UUID id);
+
+    void deleteTenantById(UUID id);
 }

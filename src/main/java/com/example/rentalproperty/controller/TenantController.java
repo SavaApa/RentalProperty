@@ -3,10 +3,8 @@ package com.example.rentalproperty.controller;
 import com.example.rentalproperty.entity.Tenant;
 import com.example.rentalproperty.service.TenantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -19,5 +17,11 @@ public class TenantController {
     @GetMapping("/get/{id}")
     public Tenant getTenantById(@PathVariable("id") UUID id) {
         return tenantService.getTenantById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteTenantByID(@PathVariable("id") UUID id){
+        tenantService.deleteTenantById(id);
+        return ResponseEntity.ok("Tenant with id " + id + " deleted");
     }
 }

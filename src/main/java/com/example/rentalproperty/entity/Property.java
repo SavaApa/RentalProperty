@@ -22,7 +22,7 @@ public class Property {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
+    @Column(name = "prop_id")
     private UUID id;
 
     @Column(name = "address")
