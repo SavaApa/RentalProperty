@@ -1,34 +1,34 @@
 CREATE TABLE IF NOT EXISTS landlords
 (
     l_id         BINARY(16) PRIMARY KEY,
-    num_property INT NOT NULL,
-    rented_out   INT NOT NULL,
-    num_free     INT NOT NULL
+    num_property INT,
+    rented_out   INT,
+    num_free     INT
 );
 
 CREATE TABLE IF NOT EXISTS tenants
 (
     t_id                BINARY(16) PRIMARY KEY,
-    preference_district VARCHAR(255) NOT NULL,
-    preference_num_room INT          NOT NULL,
-    preference_max_rent DECIMAL      NOT NULL,
-    pet_friendly        BOOLEAN      NOT NULL,
-    parking_required    BOOLEAN      NOT NULL,
-    preference_property VARCHAR(255) NOT NULL
+    preference_district VARCHAR(255),
+    preference_num_room INT,
+    preference_max_rent DECIMAL,
+    pet_friendly        BOOLEAN,
+    parking_required    BOOLEAN,
+    preference_property VARCHAR(255)
 );
 
 create table properties
 (
     prop_id       BINARY(16) PRIMARY KEY,
-    address       VARCHAR(255) NOT NULL,
-    price         DECIMAL      NOT NULL,
-    type_property VARCHAR(255) NOT NULL,
-    num_rooms     INT          NOT NULL,
-    district      VARCHAR(255) NOT NULL,
-    parking_space BOOLEAN      NOT NULL,
-    pets          BOOLEAN      NOT NULL,
-    landlord_id   BINARY(16)   NOT NULL,
-    tenant_id     BINARY(16)   NOT NULL,
+    address       VARCHAR(255),
+    price         DECIMAL,
+    type_property VARCHAR(255),
+    num_rooms     INT,
+    district      VARCHAR(255),
+    parking_space BOOLEAN,
+    pets          BOOLEAN,
+    landlord_id   BINARY(16),
+    tenant_id     BINARY(16),
     FOREIGN KEY (landlord_id) REFERENCES landlords (l_id),
     FOREIGN KEY (tenant_id) REFERENCES tenants (t_id)
 );
@@ -38,11 +38,11 @@ create table properties
 CREATE TABLE IF NOT EXISTS applications
 (
     ap_id              BINARY(16) PRIMARY KEY,
-    began_date         DATE         NOT NULL,
-    application_status VARCHAR(255) NOT NULL,
-    landlord_id        BINARY(16)   NOT NULL,
-    property_id        BINARY(16)   NOT NULL,
-    tenant_id          BINARY(16)   NOT NULL,
+    began_date         DATE,
+    application_status VARCHAR(255),
+    landlord_id        BINARY(16),
+    property_id        BINARY(16),
+    tenant_id          BINARY(16),
     FOREIGN KEY (landlord_id) REFERENCES landlords (l_id),
     FOREIGN KEY (property_id) REFERENCES properties (prop_id),
     FOREIGN KEY (tenant_id) REFERENCES tenants (t_id)
@@ -89,8 +89,8 @@ CREATE TABLE IF NOT EXISTS users
     tenant_id    BINARY(16),
     landlord_id  BINARY(16),
     FOREIGN KEY (user_info_id) REFERENCES user_info (ui_id),
-    FOREIGN KEY (tenant_id) REFERENCES tenants (t_id),
-    FOREIGN KEY (landlord_id) REFERENCES landlords (l_id)
+    FOREIGN KEY (tenant_id) REFERENCES tenants (t_id) ON DELETE SET NULL,
+    FOREIGN KEY (landlord_id) REFERENCES landlords (l_id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS roles

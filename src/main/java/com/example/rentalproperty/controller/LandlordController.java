@@ -1,5 +1,7 @@
 package com.example.rentalproperty.controller;
 
+import com.example.rentalproperty.dto.LandlordAfterCreatingDto;
+import com.example.rentalproperty.dto.LandlordCreateDto;
 import com.example.rentalproperty.entity.Landlord;
 import com.example.rentalproperty.service.LandlordService;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +25,10 @@ public class LandlordController {
     public ResponseEntity<String> deleteLandlordId(@PathVariable("id") UUID id){
         landlordService.deleteLandlordById(id);
         return ResponseEntity.ok("Landlord with id " + id + " deleted");
+    }
+
+    @PostMapping("/create")
+    public LandlordAfterCreatingDto createDto(@RequestBody LandlordCreateDto landlordCreateDto){
+        return landlordService.createLandlord(landlordCreateDto);
     }
 }

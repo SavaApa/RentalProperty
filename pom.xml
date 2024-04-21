@@ -9,10 +9,10 @@
         <!--  lookup parent from repository  -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>CarSharing</artifactId>
+    <artifactId>RentalProperty</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>CarSharing</name>
-    <description>CarSharing</description>
+    <name>RentalProperty</name>
+    <description>RentalProperty</description>
     <properties>
         <java.version>17</java.version>
     </properties>

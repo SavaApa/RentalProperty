@@ -9,5 +9,7 @@ import java.util.UUID;
 @Repository
 public interface LandlordRepository extends JpaRepository<Landlord, UUID> {
     Landlord findLandlordById(UUID id);
+
+    Landlord findLandlordByNumProperty(int numProperty);
 }
 
