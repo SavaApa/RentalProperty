@@ -1,7 +1,5 @@
 package com.example.rentalproperty.controller;
 
-import com.example.rentalproperty.dto.TenantAfterCreatingDto;
-import com.example.rentalproperty.dto.TenantCreateDto;
 import com.example.rentalproperty.entity.Tenant;
 import com.example.rentalproperty.service.TenantService;
 import lombok.RequiredArgsConstructor;
@@ -25,15 +23,5 @@ public class TenantController {
     public ResponseEntity<String> deleteTenantByID(@PathVariable("id") UUID id){
         tenantService.deleteTenantById(id);
         return ResponseEntity.ok("Tenant with id " + id + " deleted");
-    }
-
-    @PostMapping("/create")
-    public TenantAfterCreatingDto createTenant(@RequestBody TenantCreateDto tenantCreateDto){
-        return tenantService.createTenant(tenantCreateDto);
-    }
-
-    @PutMapping("update/{id}/{updatePreferenceDistrict}")
-    public Tenant updatePreferenceDistrict(@PathVariable("id") UUID id, @PathVariable String updatePreferenceDistrict){
-        return tenantService.updateTenantPreferenceDistrict(id, updatePreferenceDistrict);
     }
 }
