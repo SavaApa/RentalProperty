@@ -13,5 +13,4 @@ public class ContractCreateDto {
     String typeProperty;
     String preferenceProperty;
     UUID l_id;
-
 }
