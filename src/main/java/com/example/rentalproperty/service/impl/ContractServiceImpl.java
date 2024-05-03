@@ -9,27 +9,17 @@ import com.example.rentalproperty.entity.Property;
 import com.example.rentalproperty.entity.enums.ApplicationStatus;
 import com.example.rentalproperty.entity.enums.TypeProperty;
 import com.example.rentalproperty.exception.ContractDoesntExistException;
-<<<<<<< HEAD
-import com.example.rentalproperty.exception.LandlordDoesntExistException;
-=======
 import com.example.rentalproperty.exception.IdNotFoundExeption;
->>>>>>> a2a420f (Initial commit)
 import com.example.rentalproperty.exception.errorMessage.ErrorMessage;
 import com.example.rentalproperty.mapper.ContractMapper;
 import com.example.rentalproperty.repository.ContractRepository;
 import com.example.rentalproperty.repository.LandlordRepository;
 import com.example.rentalproperty.service.ContractService;
-<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-=======
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
->>>>>>> a2a420f (Initial commit)
 import java.util.UUID;
 
 @Service
@@ -51,10 +41,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     @Transactional
->>>>>>> a2a420f (Initial commit)
     public void deleteContractById(UUID id) {
         if (!contractRepository.existsById(id)) {
             throw new ContractDoesntExistException(ErrorMessage.NOT_EXIST);
@@ -62,10 +49,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     @Transactional
->>>>>>> a2a420f (Initial commit)
     public ContractAfterCreatingDto createContract(ContractCreateDto contractCreateDto) {
         Contract contract = contractRepository.findContractByStartDate(contractCreateDto.getStartDate());
         if (contract != null) {
@@ -92,9 +76,6 @@ public class ContractServiceImpl implements ContractService {
         Contract contractAfterCreation = contractRepository.save(entity);
         return contractMapper.toDto(contractAfterCreation);
     }
-<<<<<<< HEAD
-=======
-
     @Override
     @Transactional
     public Contract updateContractStartDate(UUID id, LocalDate updateStartDate) {
@@ -107,5 +88,4 @@ public class ContractServiceImpl implements ContractService {
             throw new IdNotFoundExeption(ErrorMessage.ID_NOT_FOUND);
         }
     }
->>>>>>> a2a420f (Initial commit)
 }
