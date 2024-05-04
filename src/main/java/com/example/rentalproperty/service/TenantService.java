@@ -13,5 +13,5 @@ public interface TenantService {
 
     TenantAfterCreatingDto createTenant(TenantCreateDto tenantCreateDto);
 
-    Tenant updateTenantPreferenceDistrict(UUID id, String updatePreferenceDistrict);
+    Tenant updateTenant(UUID id, Tenant tenant);
 }

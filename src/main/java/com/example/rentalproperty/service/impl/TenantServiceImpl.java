@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -55,14 +56,34 @@ public class TenantServiceImpl implements TenantService {
 
     @Override
     @Transactional
-    public Tenant updateTenantPreferenceDistrict(UUID id, String updatePreferenceDistrict) {
-        Tenant tenant = tenantRepository.findTenantById(id);
-        if (tenant != null) {
-            tenant.setPreferenceDistrict(updatePreferenceDistrict);
-            tenantRepository.save(tenant);
-            return tenant;
-        } else {
-            throw new IdNotFoundExeption(ErrorMessage.ID_NOT_FOUND);
+    public Tenant updateTenant(UUID id, Tenant tenant) {
+        Tenant getTenant = getTenantById(id);
+        if(getTenant != null){
+            if(!Objects.equals(getTenant.getPreferenceDistrict(), tenant.getPreferenceDistrict())){
+                getTenant.setPreferenceDistrict(tenant.getPreferenceDistrict());
+                tenantRepository.save(getTenant);
+            }
+            if(getTenant.getPreferenceNumRoom() != tenant.getPreferenceNumRoom()){
+                getTenant.setPreferenceNumRoom(tenant.getPreferenceNumRoom());
+                tenantRepository.save(getTenant);
+            }
+            if(!Objects.equals(getTenant.getPreferenceMaxRent(), tenant.getPreferenceMaxRent())){
+                getTenant.setPreferenceMaxRent(tenant.getPreferenceMaxRent());
+                tenantRepository.save(tenant);
+            }
+            if(getTenant.isPetFriendly() != tenant.isPetFriendly()){
+                getTenant.setPetFriendly(tenant.isPetFriendly());
+                tenantRepository.save(tenant);
+            }
+            if(getTenant.isParkingRequired() != tenant.isParkingRequired()){
+                getTenant.setParkingRequired(tenant.isParkingRequired());
+                tenantRepository.save(tenant);
+            }
+            if(getTenant.getPreferenceProperty() != tenant.getPreferenceProperty()){
+                getTenant.setPreferenceProperty(tenant.getPreferenceProperty());
+                tenantRepository.save(tenant);
+            }
         }
+        return getTenant;
     }
 }

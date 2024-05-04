@@ -36,8 +36,8 @@ public class TenantController {
         return tenantService.createTenant(tenantCreateDto);
     }
 
-    @ChangeTenant(path = "update/{id}/{updatePreferenceDistrict}")
-    public Tenant updatePreferenceDistrict(@PathVariable("id") UUID id, @PathVariable String updatePreferenceDistrict){
-        return tenantService.updateTenantPreferenceDistrict(id, updatePreferenceDistrict);
+    @ChangeTenant(path = "update/{id}")
+    public Tenant updateTenant(@PathVariable("id") UUID id, @RequestBody Tenant tenant){
+        return tenantService.updateTenant(id, tenant);
     }
 }
