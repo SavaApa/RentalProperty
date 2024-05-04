@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
 @Operation(
         summary = "Create a new contract",
         description = "Creation of a new contract and return",
-        tags = {"PRODUCT"},
+        tags = {"CONTRACT"},
         requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                 description = "The contract to be created",
                 required = true,

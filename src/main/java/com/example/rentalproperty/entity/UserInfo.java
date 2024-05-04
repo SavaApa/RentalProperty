@@ -1,11 +1,13 @@
 package com.example.rentalproperty.entity;
 
+import com.example.rentalproperty.generator.UuidTimeSequenceGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +23,7 @@ public class UserInfo {
     @Id
     @Column(name = "ui_id")
     @GeneratedValue(strategy = GenerationType.UUID)
+    @GenericGenerator(name = "UUID", type = UuidTimeSequenceGenerator.class)
     private UUID id;
 
     @Column(name = "email")
