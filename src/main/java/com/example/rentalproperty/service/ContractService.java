@@ -14,5 +14,5 @@ public interface ContractService {
 
     ContractAfterCreatingDto createContract(ContractCreateDto contractCreateDto);
 
-    Contract updateContractStartDate(UUID id, LocalDate updateStartDate);
+    Contract updateContract(UUID id, Contract contract);
 }

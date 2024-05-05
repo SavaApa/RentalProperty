@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
         ),
         responses = {
                 @ApiResponse(
-                        responseCode = "201",
+                        responseCode = "200",
                         description = "The landlord created",
                         content = @Content(
                                 mediaType = "application/json",

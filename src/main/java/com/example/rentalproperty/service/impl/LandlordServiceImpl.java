@@ -55,14 +55,24 @@ public class LandlordServiceImpl implements LandlordService {
 
     @Override
     @Transactional
-    public Landlord updateNumProperty(UUID id, int updateNumProperty) {
-        Landlord landlord = landlordRepository.findLandlordById(id);
-        if(landlord != null){
-            landlord.setNumProperty(updateNumProperty);
-            landlordRepository.save(landlord);
-            return landlord;
-        }else{
+    public Landlord updateLandlord(UUID id, Landlord landlord) {
+        Landlord getLandlord = landlordRepository.findLandlordById(id);
+        if (getLandlord != null) {
+            if (getLandlord.getNumFree() != landlord.getNumFree()) {
+                getLandlord.setNumFree(landlord.getNumFree());
+                landlordRepository.save(getLandlord);
+            }
+            if (getLandlord.getNumProperty() != landlord.getNumProperty()) {
+                getLandlord.setNumProperty(landlord.getNumProperty());
+                landlordRepository.save(getLandlord);
+            }
+            if (getLandlord.getRentedOut() != landlord.getRentedOut()) {
+                getLandlord.setRentedOut(landlord.getRentedOut());
+                landlordRepository.save(landlord);
+            }
+        } else {
             throw new IdNotFoundExeption(ErrorMessage.ID_NOT_FOUND);
         }
+        return getLandlord;
     }
 }

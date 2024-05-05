@@ -1,16 +1,18 @@
 package com.example.rentalproperty.controller.util;
 
+import com.example.rentalproperty.entity.Contract;
+import com.example.rentalproperty.entity.Landlord;
 import com.example.rentalproperty.entity.Tenant;
 import com.example.rentalproperty.entity.enums.TypeProperty;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class Generator {
 
     public static Tenant getUpdTenant() {
         Tenant tenant = new Tenant();
-        tenant.setId(UUID.fromString("193e4a81-38c8-4f18-bdf7-590205283979"));
         tenant.setPreferenceDistrict("new PreferenceDistrict");
         tenant.setPreferenceNumRoom(5);
         tenant.setPreferenceMaxRent(new BigDecimal(5000));
@@ -18,5 +20,20 @@ public class Generator {
         tenant.setParkingRequired(false);
         tenant.setPreferenceProperty(TypeProperty.OFFICE);
         return tenant;
+    }
+
+    public static Landlord getUpdLandlord() {
+        Landlord landlord = new Landlord();
+        landlord.setNumProperty(10);
+        landlord.setNumFree(3);
+        landlord.setRentedOut(7);
+        return landlord;
+    }
+
+    public static Contract getUpdContract() {
+        Contract contract = new Contract();
+        contract.setStartDate(LocalDate.of(2024, 12, 15));
+        contract.setEndDate(LocalDate.of(2040, 12, 15));
+        return contract;
     }
 }

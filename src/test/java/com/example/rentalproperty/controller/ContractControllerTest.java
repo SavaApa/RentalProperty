@@ -1,9 +1,8 @@
 package com.example.rentalproperty.controller;
 
 import com.example.rentalproperty.controller.util.Generator;
-import com.example.rentalproperty.dto.TenantCreateDto;
-import com.example.rentalproperty.entity.Tenant;
-import com.example.rentalproperty.entity.enums.TypeProperty;
+import com.example.rentalproperty.dto.ContractCreateDto;
+import com.example.rentalproperty.entity.Contract;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.UUID;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql("/db/drop.sql")
 @Sql("/db/schemaTest.sql")
 @Sql("/db/dataTest.sql")
-public class TenantControllerTest {
+public class ContractControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,14 +36,16 @@ public class TenantControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void createTenantPositiveTest() throws Exception {
-        TenantCreateDto tenantCreateDto = new TenantCreateDto("Suborbital", 3,
-                new BigDecimal(3000), TypeProperty.APARTMENT);
+    public void createContractPositiveTest() throws Exception {
+        LocalDate startDate = LocalDate.of(2024, 12, 15);
+        LocalDate endDate = LocalDate.of(2028, 3, 15);
+        ContractCreateDto contractCreateDto = new ContractCreateDto(startDate, endDate, "ACCEPTED",
+                "OFFICE", "OFFICE", UUID.fromString("e8240961-836b-43cc-948c-4fb4d2cbcb18"));
 
-        String json = objectMapper.writeValueAsString(tenantCreateDto);
+        String json = objectMapper.writeValueAsString(contractCreateDto);
 
         MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders.post("/tenant/create")
+                .perform(MockMvcRequestBuilders.post("/contract/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andReturn();
@@ -52,36 +54,36 @@ public class TenantControllerTest {
     }
 
     @Test
-    void changeTenantPositiveTest() throws Exception {
-        Tenant tenant = Generator.getUpdTenant();
-        String json = objectMapper.writeValueAsString(tenant);
+    void changeContractPositiveTest() throws Exception {
+        Contract contract = Generator.getUpdContract();
+        String json = objectMapper.writeValueAsString(contract);
 
-        MvcResult tenantResult = mockMvc
-                .perform(MockMvcRequestBuilders.put("/tenant/update/193e4a81-38c8-4f18-bdf7-590205283979")
+        MvcResult contractResult = mockMvc
+                .perform(MockMvcRequestBuilders.put("/contract/update/7e4ab44b-2ef3-46ef-ac38-c00fa7ad36cd")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andReturn();
 
-        Assertions.assertEquals(200, tenantResult.getResponse().getStatus());
+        Assertions.assertEquals(200, contractResult.getResponse().getStatus());
     }
 
     @Test
-    void getTenantByIdPositiveTest() throws Exception {
-        MockHttpServletResponse tenantGetResult = mockMvc
+    void getContractByIdPositiveTest() throws Exception {
+        MockHttpServletResponse contractGetResult = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/tenant/get/193e4a81-38c8-4f18-bdf7-590205283979"))
+                        .get("/contract/get/7e4ab44b-2ef3-46ef-ac38-c00fa7ad36cd"))
                 .andExpect(status().isOk()).andReturn().getResponse();
 
-        Assertions.assertEquals(tenantGetResult.getStatus(), HttpStatus.OK.value());
+        Assertions.assertEquals(contractGetResult.getStatus(), HttpStatus.OK.value());
     }
 
     @Test
-    void deleteTenantPositiveTest() throws Exception {
-        MockHttpServletResponse tenantDeleteResult = mockMvc
+    void deleteContractPositiveTest() throws Exception {
+        MockHttpServletResponse contractDeleteResult = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .delete("/tenant/delete/193e4a81-38c8-4f18-bdf7-590205283979"))
+                        .delete("/contract/delete/7e4ab44b-2ef3-46ef-ac38-c00fa7ad36cd"))
                 .andExpect(status().isOk()).andReturn().getResponse();
 
-        Assertions.assertEquals(tenantDeleteResult.getStatus(), HttpStatus.OK.value());
+        Assertions.assertEquals(contractDeleteResult.getStatus(), HttpStatus.OK.value());
     }
 }

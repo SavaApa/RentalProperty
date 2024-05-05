@@ -78,14 +78,20 @@ public class ContractServiceImpl implements ContractService {
     }
     @Override
     @Transactional
-    public Contract updateContractStartDate(UUID id, LocalDate updateStartDate) {
-        Contract contract = contractRepository.findContractById(id);
-        if(contract != null){
-            contract.setStartDate(updateStartDate);
-            contractRepository.save(contract);
-            return contract;
+    public Contract updateContract(UUID id, Contract contract) {
+        Contract getContract = contractRepository.findContractById(id);
+        if(getContract != null){
+            if(getContract.getStartDate() != contract.getStartDate()){
+                getContract.setStartDate(contract.getStartDate());
+                contractRepository.save(getContract);
+            }
+            if(getContract.getEndDate() != contract.getEndDate()){
+                getContract.setEndDate(contract.getEndDate());
+                contractRepository.save(getContract);
+            }
         }else{
             throw new IdNotFoundExeption(ErrorMessage.ID_NOT_FOUND);
         }
+        return getContract;
     }
 }

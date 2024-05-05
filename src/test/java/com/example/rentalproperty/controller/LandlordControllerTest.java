@@ -1,9 +1,8 @@
 package com.example.rentalproperty.controller;
 
 import com.example.rentalproperty.controller.util.Generator;
-import com.example.rentalproperty.dto.TenantCreateDto;
-import com.example.rentalproperty.entity.Tenant;
-import com.example.rentalproperty.entity.enums.TypeProperty;
+import com.example.rentalproperty.dto.LandlordCreateDto;
+import com.example.rentalproperty.entity.Landlord;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.math.BigDecimal;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -27,8 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql("/db/drop.sql")
 @Sql("/db/schemaTest.sql")
 @Sql("/db/dataTest.sql")
-public class TenantControllerTest {
-
+public class LandlordControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -36,14 +32,13 @@ public class TenantControllerTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void createTenantPositiveTest() throws Exception {
-        TenantCreateDto tenantCreateDto = new TenantCreateDto("Suborbital", 3,
-                new BigDecimal(3000), TypeProperty.APARTMENT);
+    public void createLandlordPositiveTest() throws Exception {
+        LandlordCreateDto landlordCreateDto = new LandlordCreateDto(10, 4, 6);
 
-        String json = objectMapper.writeValueAsString(tenantCreateDto);
+        String json = objectMapper.writeValueAsString(landlordCreateDto);
 
         MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders.post("/tenant/create")
+                .perform(MockMvcRequestBuilders.post("/landlord/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andReturn();
@@ -52,36 +47,37 @@ public class TenantControllerTest {
     }
 
     @Test
-    void changeTenantPositiveTest() throws Exception {
-        Tenant tenant = Generator.getUpdTenant();
-        String json = objectMapper.writeValueAsString(tenant);
+    void changeLandlordPositiveTest() throws Exception {
+        Landlord landlord = Generator.getUpdLandlord();
+        String json = objectMapper.writeValueAsString(landlord);
 
-        MvcResult tenantResult = mockMvc
-                .perform(MockMvcRequestBuilders.put("/tenant/update/193e4a81-38c8-4f18-bdf7-590205283979")
+        MvcResult landlordResult = mockMvc
+                .perform(MockMvcRequestBuilders.put("/landlord/update/e8240961-836b-43cc-948c-4fb4d2cbcb18")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andReturn();
 
-        Assertions.assertEquals(200, tenantResult.getResponse().getStatus());
+        Assertions.assertEquals(200, landlordResult.getResponse().getStatus());
     }
 
     @Test
-    void getTenantByIdPositiveTest() throws Exception {
-        MockHttpServletResponse tenantGetResult = mockMvc
+    void getLandlordByIdPositiveTest() throws Exception {
+        MockHttpServletResponse landlordGetResult = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/tenant/get/193e4a81-38c8-4f18-bdf7-590205283979"))
+                        .get("/landlord/get/e8240961-836b-43cc-948c-4fb4d2cbcb18"))
                 .andExpect(status().isOk()).andReturn().getResponse();
 
-        Assertions.assertEquals(tenantGetResult.getStatus(), HttpStatus.OK.value());
+        Assertions.assertEquals(landlordGetResult.getStatus(), HttpStatus.OK.value());
+
     }
 
     @Test
-    void deleteTenantPositiveTest() throws Exception {
-        MockHttpServletResponse tenantDeleteResult = mockMvc
+    void deleteLandlordByPositiveTest() throws Exception {
+        MockHttpServletResponse landlordDeleteResult = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .delete("/tenant/delete/193e4a81-38c8-4f18-bdf7-590205283979"))
+                        .delete("/landlord/delete/e8240961-836b-43cc-948c-4fb4d2cbcb18"))
                 .andExpect(status().isOk()).andReturn().getResponse();
 
-        Assertions.assertEquals(tenantDeleteResult.getStatus(), HttpStatus.OK.value());
+        Assertions.assertEquals(landlordDeleteResult.getStatus(), HttpStatus.OK.value());
     }
 }

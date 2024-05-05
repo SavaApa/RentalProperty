@@ -36,9 +36,9 @@ public class LandlordController {
         return landlordService.createLandlord(landlordCreateDto);
     }
 
-    @ChangeLandlord(path = "/update/{id}/{numProperty}")
-    public Landlord updateNumProperty(@PathVariable("id") UUID id, @PathVariable int updateNumProperty){
-        return landlordService.updateNumProperty(id, updateNumProperty);
+    @ChangeLandlord(path = "/update/{id}")
+    public Landlord updateLandlord(@PathVariable("id") UUID id, @RequestBody Landlord landlord){
+        return landlordService.updateLandlord(id, landlord);
     }
 
 }

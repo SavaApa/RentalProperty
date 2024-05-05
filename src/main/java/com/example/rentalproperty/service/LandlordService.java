@@ -13,5 +13,5 @@ public interface LandlordService {
 
     LandlordAfterCreatingDto createLandlord(LandlordCreateDto landlordCreateDto);
 
-    Landlord updateNumProperty(UUID id, int updateNumProperty);
+    Landlord updateLandlord(UUID id, Landlord landlord);
 }

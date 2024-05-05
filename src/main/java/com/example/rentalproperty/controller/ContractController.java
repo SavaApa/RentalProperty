@@ -37,8 +37,8 @@ public class ContractController {
         return contractService.createContract(contractCreateDto);
     }
 
-    @ChangeContract(path = "update/{id}/{updateStartDate}")
-    public Contract updateStartDate(@PathVariable("id") UUID id, @PathVariable LocalDate updateStartDate){
-        return contractService.updateContractStartDate(id, updateStartDate);
+    @ChangeContract(path = "update/{id}")
+    public Contract updateStartDate(@PathVariable("id") UUID id, @RequestBody Contract contract){
+        return contractService.updateContract(id, contract);
     }
 }
