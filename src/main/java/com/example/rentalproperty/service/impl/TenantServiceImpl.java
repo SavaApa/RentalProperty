@@ -48,7 +48,6 @@ public class TenantServiceImpl implements TenantService {
             throw new RuntimeException("Tenant with preference district already exists");
         }
 
-
         Tenant entity = tenantMapper.toEntity(tenantCreateDto);
         Tenant tenantAfterCreation = tenantRepository.save(entity);
         return tenantMapper.toDto(tenantAfterCreation);

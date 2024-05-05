@@ -1,14 +1,11 @@
 package com.example.rentalproperty.entity;
 
 import com.example.rentalproperty.entity.enums.TypeProperty;
-import com.example.rentalproperty.generator.UuidTimeSequenceGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -25,7 +22,6 @@ public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "t_id")
-    @GenericGenerator(name = "UUID", type = UuidTimeSequenceGenerator.class)
     private UUID id;
 
     @Column(name = "preference_district")

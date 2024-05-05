@@ -1,14 +1,11 @@
 package com.example.rentalproperty.entity;
 
 
-import com.example.rentalproperty.generator.UuidTimeSequenceGenerator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
 import java.util.Set;
@@ -24,7 +21,6 @@ public class Role {
     @Id
     @Column(name = "r_id")
     @GeneratedValue(strategy = GenerationType.UUID)
-    @GenericGenerator(name = "UUID", type = UuidTimeSequenceGenerator.class)
     private UUID role;
 
     @Column(name = "role_name")
