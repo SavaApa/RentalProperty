@@ -1,28 +1,27 @@
 package com.example.rentalproperty.controller;
 
 
-import com.example.rentalproperty.annotation.ChangeContract;
-import com.example.rentalproperty.annotation.CreateContract;
-import com.example.rentalproperty.annotation.DeleteContract;
-import com.example.rentalproperty.annotation.GetContract;
+import com.example.rentalproperty.annotation.*;
 import com.example.rentalproperty.dto.ContractAfterCreatingDto;
 import com.example.rentalproperty.dto.ContractCreateDto;
 import com.example.rentalproperty.entity.Contract;
 import com.example.rentalproperty.service.ContractService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/contract")
 public class ContractController {
     private final ContractService contractService;
     @GetContract(path = "/get/{id}")
-    public Contract getContractById(@PathVariable("id") UUID id){
+    public Contract getContractById(@UuidFormatChecker @PathVariable("id") UUID id){
         return contractService.getContractById(id);
     }
 
