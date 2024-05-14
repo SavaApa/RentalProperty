@@ -8,6 +8,7 @@ import com.example.rentalproperty.dto.TenantAfterCreatingDto;
 import com.example.rentalproperty.dto.TenantCreateDto;
 import com.example.rentalproperty.entity.Tenant;
 import com.example.rentalproperty.service.TenantService;
+import com.example.rentalproperty.validation.annotation.UuidFormatChecker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class TenantController {
     private final TenantService tenantService;
 
     @GetTenant(path = "/get/{id}")
-    public Tenant getTenantById(@PathVariable("id") UUID id) {
+    public Tenant getTenantById(@UuidFormatChecker @PathVariable("id") UUID id) {
         return tenantService.getTenantById(id);
     }
 

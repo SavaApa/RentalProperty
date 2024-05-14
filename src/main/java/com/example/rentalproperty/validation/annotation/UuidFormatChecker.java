@@ -1,6 +1,6 @@
-package com.example.rentalproperty.annotation;
+package com.example.rentalproperty.validation.annotation;
 
-import com.example.rentalproperty.constraint.UuidFormatCheckerConstraint;
+import com.example.rentalproperty.validation.constraint.UuidFormatCheckerConstraint;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -9,11 +9,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
 @Constraint(validatedBy = UuidFormatCheckerConstraint.class)
 public @interface UuidFormatChecker {
-    String message() default "IT IS NOT UUID FORMAT";
+    String message() default "IT is not UUID format";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
