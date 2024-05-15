@@ -15,7 +15,6 @@ import org.mapstruct.ReportingPolicy;
 
 public interface LandlordMapper {
 
-
     @Mapping(target = "numProperty", source = "numProperty")
     @Mapping(target = "rentedOut", source = "rentedOut")
     @Mapping(target = "numFree", source = "numFree")

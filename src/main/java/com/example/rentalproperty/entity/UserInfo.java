@@ -22,6 +22,9 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "user_name")
+    private String userName;
+
     @Column(name = "email")
     private String email;
 

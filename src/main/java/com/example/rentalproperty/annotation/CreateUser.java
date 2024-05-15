@@ -1,6 +1,7 @@
 package com.example.rentalproperty.annotation;
 
 import com.example.rentalproperty.entity.Landlord;
+import com.example.rentalproperty.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,37 +19,37 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @RequestMapping(method = RequestMethod.POST)
 @Operation(
-        summary = "Create a new landlord",
-        description = "Creation of a new landlord and return",
-        tags = {"LANDLORD"},
+        summary = "Create a new user",
+        description = "Creation of a new user and return",
+        tags = {"USER"},
         requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                description = "The landlord to be created",
+                description = "The user to be created",
                 required = true,
                 content = @Content(
                         mediaType = "application/json",
-                        schema = @Schema(implementation = Landlord.class)
+                        schema = @Schema(implementation = User.class)
                 )
         ),
         responses = {
                 @ApiResponse(
                         responseCode = "200",
-                        description = "The landlord created",
+                        description = "The user created",
                         content = @Content(
                                 mediaType = "application/json",
-                                schema = @Schema(implementation = Landlord.class)
+                                schema = @Schema(implementation = User.class)
                         )
                 ),
                 @ApiResponse(
                         responseCode = "400",
-                        description = "The landlord already exist",
+                        description = "The user already exist",
                         content = @Content(
                                 mediaType = "application/json",
-                                schema = @Schema(implementation = Landlord.class)
+                                schema = @Schema(implementation = User.class)
                         )
                 )
         }
 )
-public @interface CreateLandlord {
+public @interface CreateUser {
     @AliasFor(annotation = RequestMapping.class, attribute = "path")
     String[] path() default {};
 }

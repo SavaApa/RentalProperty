@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS payments
 CREATE TABLE IF NOT EXISTS user_info
 (
     ui_id    BINARY(16) PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );

@@ -17,10 +17,6 @@ public interface TenantMapper {
     @Mapping(target = "preferenceNumRoom", source = "preferenceNumRoom")
     @Mapping(target = "preferenceMaxRent", source = "preferenceMaxRent")
     @Mapping(target = "preferenceProperty", source = "preferenceProperty")
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "petFriendly", ignore = true)
-    @Mapping(target = "parkingRequired", ignore = true)
     Tenant toEntity(TenantCreateDto tenantCreateDto);
 
     @Mapping(target = "t_id", source = "id")

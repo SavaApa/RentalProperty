@@ -24,9 +24,9 @@ INSERT INTO payments (pay_id, amount, payment_date, payment_status, contract_id)
 VALUES (UNHEX('c14f600946d440b686717d7a4e5db206'), 1200.00, '2024-04-01', 'PAID', UNHEX('7e4ab44b2ef346efac38c00fa7ad36cd')),
        (UNHEX('7c3786350f414a2397d11f02459b161a'), 1800.00, '2024-04-05', 'PAID', UNHEX('16cd283813e749a087edbcd53f27fb79'));
 
-INSERT INTO user_info (ui_id, email, password)
-VALUES (UNHEX('915ffd163eaa4fafb4fe52a59ac040aa'), 'landlord1@example.com', 'password123'),
-       (UNHEX('ab587544256748b09b15a7f178071fde'), 'tenant1@example.com', 'password456');
+INSERT INTO user_info (ui_id, user_name, email, password)
+VALUES (UNHEX('915ffd163eaa4fafb4fe52a59ac040aa'), 'John123', 'landlord1@example.com', 'password123'),
+       (UNHEX('ab587544256748b09b15a7f178071fde'),'Jane231', 'tenant1@example.com', 'password456');
 
 INSERT INTO users (u_id, first_name, last_name, user_info_id, tenant_id, landlord_id)
 VALUES (UNHEX('590f1736304048279847e4160678671b'), 'John', 'Doe', UNHEX('915ffd163eaa4fafb4fe52a59ac040aa'), NULL, UNHEX('e8240961836b43cc948c4fb4d2cbcb18')),
