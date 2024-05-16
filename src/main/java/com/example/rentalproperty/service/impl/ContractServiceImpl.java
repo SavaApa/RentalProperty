@@ -45,6 +45,8 @@ public class ContractServiceImpl implements ContractService {
     public void deleteContractById(UUID id) {
         if (!contractRepository.existsById(id)) {
             throw new ContractDoesntExistException(ErrorMessage.NOT_EXIST);
+        }else{
+            contractRepository.deleteById(id);
         }
     }
 

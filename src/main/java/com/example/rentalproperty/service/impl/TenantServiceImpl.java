@@ -37,6 +37,8 @@ public class TenantServiceImpl implements TenantService {
     public void deleteTenantById(UUID id) {
         if (!tenantRepository.existsById(id)) {
             throw new TenantDoesntExistException(ErrorMessage.NOT_EXIST);
+        }else{
+            tenantRepository.deleteById(id);
         }
     }
 

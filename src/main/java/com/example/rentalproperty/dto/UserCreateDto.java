@@ -1,8 +1,9 @@
 package com.example.rentalproperty.dto;
 
 import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class UserCreateDto {
     String firstName;
     String lastName;

@@ -1,8 +1,6 @@
 package com.example.rentalproperty.controller.util;
 
-import com.example.rentalproperty.entity.Contract;
-import com.example.rentalproperty.entity.Landlord;
-import com.example.rentalproperty.entity.Tenant;
+import com.example.rentalproperty.entity.*;
 import com.example.rentalproperty.entity.enums.TypeProperty;
 
 import java.math.BigDecimal;
@@ -36,4 +34,18 @@ public class Generator {
         contract.setEndDate(LocalDate.of(2040, 12, 15));
         return contract;
     }
+
+    public static User getUpdUser(){
+        User user = new User();
+        user.setFirstName("Dima");
+        user.setLastName("Bondarenko");
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName("DimaBon");
+        userInfo.setEmail("dimabon@gmail.com");
+
+        user.setUserInfo(userInfo);
+        return user;
+    }
+
 }

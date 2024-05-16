@@ -1,13 +1,13 @@
 package com.example.rentalproperty.controller;
 
-import com.example.rentalproperty.annotation.CreateUser;
-import com.example.rentalproperty.annotation.GetUser;
+import com.example.rentalproperty.annotation.*;
 import com.example.rentalproperty.dto.UserAfterCreatingDto;
 import com.example.rentalproperty.dto.UserCreateDto;
 import com.example.rentalproperty.entity.User;
-import com.example.rentalproperty.service.UserServices;
+import com.example.rentalproperty.service.UserService;
 import com.example.rentalproperty.validation.annotation.UuidFormatChecker;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,15 +22,26 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserServices userServices;
+    private final UserService userService;
 
-    @GetUser(path = "/getUser/{id}")
+    @GetUser(path = "/get/{id}")
     public User getUserById(@PathVariable(name = "id") @UuidFormatChecker UUID id) {
-        return userServices.getUserById(id);
+        return userService.getUserById(id);
+    }
+
+    @DeleteUser(path = "/delete/{id}")
+    public ResponseEntity<String> deleteUserByID(@PathVariable("id") UUID id){
+        userService.deleteUserById(id);
+        return ResponseEntity.ok("User with id " + id + " deleted");
     }
 
     @CreateUser(path = "/create")
     public UserAfterCreatingDto createDto(@RequestBody UserCreateDto userCreateDto){
-        return userServices.createUser(userCreateDto);
+        return userService.createUser(userCreateDto);
+    }
+
+    @ChangeUser(path = "update/{id}")
+    public User updateTenant(@PathVariable("id") UUID id, @RequestBody User user){
+        return userService.updateUser(id, user);
     }
 }

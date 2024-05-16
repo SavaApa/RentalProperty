@@ -37,6 +37,8 @@ public class LandlordServiceImpl implements LandlordService {
     public void deleteLandlordById(UUID id) {
         if (!landlordRepository.existsById(id)) {
             throw new LandlordDoesntExistException(ErrorMessage.NOT_EXIST);
+        }else{
+            landlordRepository.deleteById(id);
         }
     }
 

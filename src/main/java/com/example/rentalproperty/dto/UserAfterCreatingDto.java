@@ -1,8 +1,8 @@
 package com.example.rentalproperty.dto;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class UserAfterCreatingDto {
     String password;
     String userName;
