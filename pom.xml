@@ -88,6 +88,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -101,6 +102,56 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.11</version>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <version>0.8.11</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+
+            <configuration>
+            <outputDirectory>
+                ${project.build.directory}/site
+            </outputDirectory>
+
+                <excludes>
+                    <exclude>com/example/rentalproperty/repository/*</exclude>
+                    <exclude>com/example/rentalproperty/dto/*</exclude>
+                    <exclude>com/example/rentalproperty/exception/*</exclude>
+                    <exclude>com/example/rentalproperty/exception/error_messages/*</exclude>
+                    <exclude>com/example/rentalproperty/configuration/*</exclude>
+                    <exclude>com/example/rentalproperty/annotation/*</exclude>
+                    <exclude>com/example/rentalproperty/mapper/*</exclude>
+                    <exclude>com/example/rentalproperty/RentalPropertyApplication.class</exclude>
+                </excludes>
+
+            </configuration>
+
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
             </plugin>
         </plugins>
     </build>

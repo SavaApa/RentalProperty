@@ -9,7 +9,7 @@ import com.example.rentalproperty.entity.Property;
 import com.example.rentalproperty.entity.enums.ApplicationStatus;
 import com.example.rentalproperty.entity.enums.TypeProperty;
 import com.example.rentalproperty.exception.ContractDoesntExistException;
-import com.example.rentalproperty.exception.IdNotFoundExeption;
+import com.example.rentalproperty.exception.IdNotFoundException;
 import com.example.rentalproperty.exception.errorMessage.ErrorMessage;
 import com.example.rentalproperty.mapper.ContractMapper;
 import com.example.rentalproperty.repository.ContractRepository;
@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Service
@@ -92,7 +91,7 @@ public class ContractServiceImpl implements ContractService {
                 contractRepository.save(getContract);
             }
         }else{
-            throw new IdNotFoundExeption(ErrorMessage.ID_NOT_FOUND);
+            throw new IdNotFoundException(ErrorMessage.ID_NOT_FOUND);
         }
         return getContract;
     }

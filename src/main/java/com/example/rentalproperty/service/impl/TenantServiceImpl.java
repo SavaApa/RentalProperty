@@ -3,7 +3,7 @@ package com.example.rentalproperty.service.impl;
 import com.example.rentalproperty.dto.TenantAfterCreatingDto;
 import com.example.rentalproperty.dto.TenantCreateDto;
 import com.example.rentalproperty.entity.Tenant;
-import com.example.rentalproperty.exception.IdNotFoundExeption;
+import com.example.rentalproperty.exception.IdNotFoundException;
 import com.example.rentalproperty.exception.TenantDoesntExistException;
 import com.example.rentalproperty.exception.errorMessage.ErrorMessage;
 import com.example.rentalproperty.mapper.TenantMapper;
@@ -85,7 +85,7 @@ public class TenantServiceImpl implements TenantService {
                 tenantRepository.save(tenant);
             }
         } else {
-            throw new IdNotFoundExeption(ErrorMessage.ID_NOT_FOUND);
+            throw new IdNotFoundException(ErrorMessage.ID_NOT_FOUND);
         }
         return getTenant;
     }
