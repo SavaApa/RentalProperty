@@ -2,10 +2,7 @@ package com.example.rentalproperty.mapper;
 
 import com.example.rentalproperty.dto.LandlordAfterCreatingDto;
 import com.example.rentalproperty.dto.LandlordCreateDto;
-import com.example.rentalproperty.dto.TenantAfterCreatingDto;
-import com.example.rentalproperty.dto.TenantCreateDto;
 import com.example.rentalproperty.entity.Landlord;
-import com.example.rentalproperty.entity.Tenant;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
