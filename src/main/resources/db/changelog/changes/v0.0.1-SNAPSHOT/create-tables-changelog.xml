@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet author="Savelii" id="create_landlords_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table landlords already exists">
+            <not>
+                <tableExists tableName="landlords"/>
+            </not>
+        </preConditions>
+        <createTable tableName="landlords">
+            <column name="l_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="num_property" type="int"/>
+            <column name="rented_out" type="int"/>
+            <column name="num_free" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_tenants_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table tenants already exists">
+            <not>
+                <tableExists tableName="tenants"/>
+            </not>
+        </preConditions>
+        <createTable tableName="tenants">
+            <column name="t_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="preference_district" type="varchar(255)"/>
+            <column name="preference_num_room" type="int"/>
+            <column name="preference_max_rent" type="decimal"/>
+            <column name="pet_friendly" type="boolean"/>
+            <column name="parking_required" type="boolean"/>
+            <column name="preference_property" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_properties_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table properties already exists">
+            <not>
+                <tableExists tableName="properties"/>
+            </not>
+        </preConditions>
+        <createTable tableName="properties">
+            <column name="prop_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)"/>
+            <column name="price" type="decimal"/>
+            <column name="type_property" type="varchar(255)"/>
+            <column name="num_rooms" type="int"/>
+            <column name="district" type="varchar(255)"/>
+            <column name="parking_space" type="boolean"/>
+            <column name="pets" type="boolean"/>
+            <column name="landlord_id" type="binary(16)"/>
+            <column name="tenant_id" type="binary(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="properties" baseColumnNames="landlord_id"
+                                 constraintName="FK_properties_landlord_id" referencedTableName="landlords"
+                                 referencedColumnNames="l_id"/>
+        <addForeignKeyConstraint baseTableName="properties" baseColumnNames="tenant_id"
+                                 constraintName="FK_properties_tenant_id" referencedTableName="tenants"
+                                 referencedColumnNames="t_id"/>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_applications_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table applications already exists">
+            <not>
+                <tableExists tableName="applications"/>
+            </not>
+        </preConditions>
+        <createTable tableName="applications">
+            <column name="ap_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="began_date" type="date"/>
+            <column name="application_status" type="varchar(255)"/>
+            <column name="landlord_id" type="binary(16)"/>
+            <column name="property_id" type="binary(16)"/>
+            <column name="tenant_id" type="binary(16)"/>
+
+        </createTable>
+        <addForeignKeyConstraint baseTableName="applications"
+                                 baseColumnNames="landlord_id"
+                                 constraintName="fk_applications_landlord_id"
+                                 referencedTableName="landlords"
+                                 referencedColumnNames="l_id"/>
+        <addForeignKeyConstraint baseTableName="applications"
+                                 baseColumnNames="property_id"
+                                 constraintName="fk_applications_property_id"
+                                 referencedTableName="properties"
+                                 referencedColumnNames="prop_id"/>
+        <addForeignKeyConstraint baseTableName="applications"
+                                 baseColumnNames="tenant_id"
+                                 constraintName="fk_applications_tenant_id"
+                                 referencedTableName="tenants"
+                                 referencedColumnNames="t_id"/>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_contracts_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table contracts already exists">
+            <not>
+                <tableExists tableName="contracts"/>
+            </not>
+        </preConditions>
+        <createTable tableName="contracts">
+            <column name="c_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start_date" type="date"/>
+            <column name="end_date" type="date"/>
+            <column name="application_id" type="binary(16)"/>
+            <column name="property_id" type="binary(16)"/>
+            <column name="tenant_id" type="binary(16)"/>
+            <column name="landlord_id" type="binary(16)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="contracts" baseColumnNames="application_id" constraintName="fk_contracts_application_id" referencedTableName="applications" referencedColumnNames="ap_id"/>
+        <addForeignKeyConstraint baseTableName="contracts" baseColumnNames="property_id" constraintName="fk_contracts_property_id" referencedTableName="properties" referencedColumnNames="prop_id"/>
+        <addForeignKeyConstraint baseTableName="contracts" baseColumnNames="tenant_id" constraintName="fk_contracts_tenant_id" referencedTableName="tenants" referencedColumnNames="t_id"/>
+        <addForeignKeyConstraint baseTableName="contracts" baseColumnNames="landlord_id" constraintName="fk_contracts_landlord_id" referencedTableName="landlords" referencedColumnNames="l_id"/>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_payments_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table payments already exists">
+            <not>
+                <tableExists tableName="payments"/>
+            </not>
+        </preConditions>
+        <createTable tableName="payments">
+            <column name="pay_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="decimal"/>
+            <column name="payment_date" type="date"/>
+            <column name="payment_status" type="varchar(255)"/>
+            <column name="contract_id" type="binary(16)"/>
+
+        </createTable>
+        <addForeignKeyConstraint baseTableName="payments" baseColumnNames="contract_id" constraintName="fk_payments_contract_id" referencedTableName="contracts" referencedColumnNames="c_id"/>
+
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_roles_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table roles already exists">
+            <not>
+                <tableExists tableName="roles"/>
+            </not>
+        </preConditions>
+        <createTable tableName="roles">
+            <column name="r_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role_name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_authorities_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table authorities already exists">
+            <not>
+                <tableExists tableName="authorities"/>
+            </not>
+        </preConditions>
+        <createTable tableName="authorities">
+            <column name="aut_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="authority_name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_role_authority_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table role_authorities already exists">
+            <not>
+                <tableExists tableName="role_authorities"/>
+            </not>
+        </preConditions>
+        <createTable tableName="role_authority">
+            <column name="role_id" type="binary(16)"/>
+            <column name="authority_id" type="binary(16)"/>
+
+        </createTable>
+        <addPrimaryKey tableName="role_authority" columnNames="role_id,authority_id"/>
+        <addForeignKeyConstraint baseTableName="role_authority" baseColumnNames="role_id"
+                                 constraintName="FK_role_authority_role_id"
+                                 referencedTableName="roles" referencedColumnNames="r_id"/>
+        <addForeignKeyConstraint baseTableName="role_authority" baseColumnNames="authority_id"
+                                 constraintName="FK_role_authority_authority_id"
+                                 referencedTableName="authorities" referencedColumnNames="aut_id"/>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_users_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table users already exists">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable tableName="users">
+            <column name="u_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="user_info_id" type="binary(16)"/>
+            <column name="tenant_id" type="binary(16)"/>
+            <column name="landlord_id" type="binary(16)"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Savelii" id="create_user_info_table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table create user_info already exists">
+            <not>
+                <tableExists tableName="user_info"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user_info">
+            <column name="ui_id" type="binary(16)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_name" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="users" baseColumnNames="user_info_id" constraintName="FK_user_info"
+                                 referencedTableName="user_info" referencedColumnNames="ui_id"/>
+    </changeSet>
+
+</databaseChangeLog>
