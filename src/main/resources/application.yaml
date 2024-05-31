@@ -3,14 +3,17 @@ spring:
     banner-mode: off
 
   datasource:
-    url: ${DATASOURCE_URL}
+    url: jdbc:mysql://localhost:3306/rentalproperty?allowMultiQueries=true
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
 
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: none
+    open-in-view: false
 
   liquibase:
     change-log: classpath:db\changelog\changes\changelog-master.xml
+    enabled: true
 
