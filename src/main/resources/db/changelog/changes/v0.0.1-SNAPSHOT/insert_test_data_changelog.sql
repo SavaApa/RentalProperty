@@ -25,8 +25,8 @@ VALUES (UUID_TO_BIN('c14f6009-46d4-40b6-8671-7d7a4e5db206'), 1200.00, '2024-04-0
        (UUID_TO_BIN('7c378635-0f41-4a23-97d1-1f02459b161a'), 1800.00, '2024-04-05', 'PAID', UUID_TO_BIN('16cd2838-13e7-49a0-87ed-bcd53f27fb79'));
 
 INSERT INTO user_info (ui_id, user_name, email, password)
-VALUES (UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), 'John123', 'landlord1@example.com', 'password123'),
-       (UUID_TO_BIN('ab587544-2567-48b0-9b15-a7f178071fde'),'Jane231', 'tenant1@example.com', 'password456');
+VALUES (UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), 'landlord', 'landlord1@example.com', 'password'),
+       (UUID_TO_BIN('ab587544-2567-48b0-9b15-a7f178071fde'),'tenant', 'tenant1@example.com', 'password');
 
 INSERT INTO users (u_id, first_name, last_name, user_info_id, tenant_id, landlord_id)
 VALUES (UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'), 'John', 'Doe', UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), NULL, UUID_TO_BIN('e8240961-836b-43cc-948c-4fb4d2cbcb18')),
@@ -49,8 +49,3 @@ VALUES (UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'), UUID_TO_BIN('d23036
 INSERT INTO user_role (user_id, role_id)
 VALUES (UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'), UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2')),
        (UUID_TO_BIN('654cc27a-1082-4e64-86b9-93003c5d2ad2'), UUID_TO_BIN('dcb27f3b-e76e-4781-9f9f-6ab6f9964c23'));
-
-
-
-
-

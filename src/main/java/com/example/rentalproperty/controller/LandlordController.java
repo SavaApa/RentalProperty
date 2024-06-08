@@ -41,5 +41,4 @@ public class LandlordController {
     public Landlord updateLandlord(@PathVariable("id") UUID id, @RequestBody Landlord landlord){
         return landlordService.updateLandlord(id, landlord);
     }
-
 }

@@ -7,6 +7,8 @@ import com.example.rentalproperty.dto.ContractCreateDto;
 import com.example.rentalproperty.entity.Contract;
 import com.example.rentalproperty.service.ContractService;
 import com.example.rentalproperty.validation.annotation.UuidFormatChecker;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +24,14 @@ public class ContractController {
     private final ContractService contractService;
 
     @GetContract(path = "/get/{id}")
-    public Contract getContractById(@PathVariable("id") @UuidFormatChecker UUID id) {
+    public Contract getContractById(@PathVariable("id") @UuidFormatChecker UUID id, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null){
+            for(Cookie cookie : cookies){
+                System.out.println("COOKIE " + cookie.getName());
+                System.out.println("COOKIE " + cookie.getValue());
+            }
+        }
         return contractService.getContractById(id);
     }
 

@@ -33,10 +33,11 @@ public class UserInfo {
 
     @JsonIgnore
     @OneToOne(mappedBy = "userInfo", fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_info_id")
     private User user;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role")
     private Set<Role> roles;
 
