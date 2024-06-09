@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -20,10 +21,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.math.BigDecimal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser(username = "Jane231", password = "password456", roles = "TENANT")
 @Sql("/db/drop.sql")
 @Sql("/db/schemaTest.sql")
 @Sql("/db/dataTest.sql")
@@ -42,13 +45,14 @@ public class TenantControllerTest {
 
         String json = objectMapper.writeValueAsString(tenantCreateDto);
 
-        MvcResult result = mockMvc
+        MockHttpServletResponse result = mockMvc
                 .perform(MockMvcRequestBuilders.post("/tenant/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
-                .andReturn();
+                        .andExpect(status().isOk()).andReturn().getResponse();
 
-        Assertions.assertEquals(200, result.getResponse().getStatus());
+        assertEquals(result.getStatus(), HttpStatus.OK.value());
+
     }
 
     @Test

@@ -20,8 +20,9 @@ import static com.example.rentalproperty.security.security_util.RolesPaths.*;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+
 public class SecurityConfig {
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -29,33 +30,26 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider getAuthenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsServiceImpl);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
+    public AuthenticationProvider authProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers("/swagger-ui/**").permitAll()
-                                .requestMatchers("/v3/api-docs/**").permitAll()
-                                .requestMatchers("/swagger-resources/**").permitAll()
-                                .requestMatchers("/swagger-ui.html").permitAll()
-                                .requestMatchers(RolesPaths.USER_LIST).hasRole(RolesPaths.USER)
-                                .requestMatchers(RolesPaths.ADMIN_LIST).hasRole(RolesPaths.ADMIN)
-                                .requestMatchers(TENANT_LIST).hasRole(RolesPaths.TENANT)
-                                .requestMatchers(LANDLORD_LIST).hasRole(RolesPaths.LANDLORD)
-                                .anyRequest().authenticated())
 
+        http.csrf(AbstractHttpConfigurer::disable);
+
+        http.authorizeHttpRequests(auth -> auth
+                        .requestMatchers(LANDLORD_LIST).hasRole(LANDLORD)
+                        .requestMatchers(TENANT_LIST).hasRole(TENANT)
+                        .requestMatchers(ADMIN_LIST).hasRole(ADMINISTRATOR)
+                )
                 .httpBasic(Customizer.withDefaults())
-                .logout(logoutPage -> logoutPage.logoutSuccessUrl("/"))
                 .formLogin(Customizer.withDefaults());
         return http.build();
     }
+
 }

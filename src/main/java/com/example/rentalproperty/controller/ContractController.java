@@ -12,7 +12,6 @@ import com.example.rentalproperty.service.ContractService;
 import com.example.rentalproperty.validation.annotation.UuidFormatChecker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,26 +27,22 @@ import java.util.UUID;
 public class ContractController {
     private final ContractService contractService;
 
-    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @GetContract(path = "/get/{id}")
     public Contract getContractById(@PathVariable("id") @UuidFormatChecker UUID id) {
         return contractService.getContractById(id);
     }
 
-    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @DeleteContract(path = "/delete/{id}")
     public ResponseEntity<String> deleteContractId(@PathVariable("id") UUID id) {
         contractService.deleteContractById(id);
         return ResponseEntity.ok("Contract with id " + id + " deleted");
     }
 
-    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @CreateContract(path = "/create")
     public ContractAfterCreatingDto createDto(@RequestBody ContractCreateDto contractCreateDto) {
         return contractService.createContract(contractCreateDto);
     }
 
-    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @ChangeContract(path = "/update/{id}")
     public Contract updateStartDate(@PathVariable("id") UUID id, @RequestBody Contract contract) {
         return contractService.updateContract(id, contract);

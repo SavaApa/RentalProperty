@@ -45,12 +45,11 @@ VALUES (X'afed4fbeb75c497cad63b76b7b837ae2', 'Landlord'),
        (X'dcb27f3be76e47819f9f6ab6f9964c23', 'Tenant');
 
 INSERT INTO authorities (aut_id, authority_name)
-VALUES (X'd230360db08147a296e8ddbd54b70219', 'READ'),
-       (X'85a9805e573e4648b4e0b6216d2d88aa', 'WRITE');
+VALUES (X'd230360db08147a296e8ddbd54b70219', 'CREATE_CONTRACT'),
+       (X'85a9805e573e4648b4e0b6216d2d88aa', 'UPDATE_CONTRACT');
 
 INSERT INTO role_authority (role_id, authority_id)
-VALUES (X'afed4fbeb75c497cad63b76b7b837ae2', X'd230360db08147a296e8ddbd54b70219'),
-       (X'afed4fbeb75c497cad63b76b7b837ae2', X'85a9805e573e4648b4e0b6216d2d88aa'),
+VALUES (X'afed4fbeb75c497cad63b76b7b837ae2', X'85a9805e573e4648b4e0b6216d2d88aa'),
        (X'dcb27f3be76e47819f9f6ab6f9964c23', X'd230360db08147a296e8ddbd54b70219');
 
 INSERT INTO user_role (user_info_id, role_id)
