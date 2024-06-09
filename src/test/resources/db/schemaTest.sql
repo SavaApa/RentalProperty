@@ -116,10 +116,10 @@ CREATE TABLE IF NOT EXISTS role_authority
 
 CREATE TABLE IF NOT EXISTS user_role
 (
-    user_id BINARY(16) NOT NULL,
+    user_info_id BINARY(16) NOT NULL,
     role_id BINARY(16) NOT NULL,
-    PRIMARY KEY (user_id, role_id),
-    FOREIGN KEY (user_id) REFERENCES users (u_id),
+    PRIMARY KEY (user_info_id, role_id),
+    FOREIGN KEY (user_info_id) REFERENCES user_info (ui_id),
     FOREIGN KEY (role_id) REFERENCES roles (r_id)
 
 );

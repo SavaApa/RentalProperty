@@ -8,6 +8,7 @@ import com.example.rentalproperty.service.UserService;
 import com.example.rentalproperty.validation.annotation.UuidFormatChecker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,22 +25,26 @@ public class UserController {
 
     private final UserService userService;
 
+    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @GetUser(path = "/get/{id}")
     public User getUserById(@PathVariable(name = "id") @UuidFormatChecker UUID id) {
         return userService.getUserById(id);
     }
 
+    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @DeleteUser(path = "/delete/{id}")
     public ResponseEntity<String> deleteUserByID(@PathVariable("id") UUID id){
         userService.deleteUserById(id);
         return ResponseEntity.ok("User with id " + id + " deleted");
     }
 
+    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @CreateUser(path = "/create")
     public UserAfterCreatingDto createDto(@RequestBody UserCreateDto userCreateDto){
         return userService.createUser(userCreateDto);
     }
 
+    @PreAuthorize("hasAnyRole('LANDLORD', 'TENANT', 'USER')")
     @ChangeUser(path = "update/{id}")
     public User updateTenant(@PathVariable("id") UUID id, @RequestBody User user){
         return userService.updateUser(id, user);

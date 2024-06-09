@@ -1,4 +1,4 @@
-package com.example.rentalproperty.controller;
+package com.example.rentalproperty.controller.handler;
 
 import com.example.rentalproperty.exception.*;
 import org.springframework.http.HttpStatus;

@@ -53,7 +53,7 @@ VALUES (X'afed4fbeb75c497cad63b76b7b837ae2', X'd230360db08147a296e8ddbd54b70219'
        (X'afed4fbeb75c497cad63b76b7b837ae2', X'85a9805e573e4648b4e0b6216d2d88aa'),
        (X'dcb27f3be76e47819f9f6ab6f9964c23', X'd230360db08147a296e8ddbd54b70219');
 
-INSERT INTO user_role (user_id, role_id)
-VALUES (X'590f1736304048279847e4160678671b', X'afed4fbeb75c497cad63b76b7b837ae2'),
-       (X'654cc27a10824e6486b993003c5d2ad2', X'dcb27f3be76e47819f9f6ab6f9964c23');
+INSERT INTO user_role (user_info_id, role_id)
+VALUES (X'915ffd163eaa4fafb4fe52a59ac040aa', X'afed4fbeb75c497cad63b76b7b837ae2'),
+       (X'ab587544256748b09b15a7f178071fde', X'dcb27f3be76e47819f9f6ab6f9964c23');
 

@@ -62,12 +62,12 @@ public class LandlordControllerTest {
 
     @Test
     void getLandlordByIdPositiveTest() throws Exception {
-        MockHttpServletResponse landlordGetResult = mockMvc
-                .perform(MockMvcRequestBuilders
-                        .get("/landlord/get/e8240961-836b-43cc-948c-4fb4d2cbcb18"))
-                .andExpect(status().isOk()).andReturn().getResponse();
-
-        Assertions.assertEquals(landlordGetResult.getStatus(), HttpStatus.OK.value());
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/landlord/get/e8240961-836b-43cc-948c-4fb4d2cbcb18")
+                        .header("Authorization", "Bearer your_valid_token"))
+                .andExpect(status().isOk())
+                .andReturn();
+        MockHttpServletResponse response = result.getResponse();
+        Assertions.assertEquals(HttpStatus.OK.value(), response.getStatus());
 
     }
 

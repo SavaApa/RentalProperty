@@ -46,6 +46,6 @@ VALUES (UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'), UUID_TO_BIN('d23036
        (UUID_TO_BIN('dcb27f3b-e76e-4781-9f9f-6ab6f9964c23'), UUID_TO_BIN('d230360d-b081-47a2-96e8-ddbd54b70219'));
 
 
-INSERT INTO user_role (user_id, role_id)
-VALUES (UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'), UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2')),
-       (UUID_TO_BIN('654cc27a-1082-4e64-86b9-93003c5d2ad2'), UUID_TO_BIN('dcb27f3b-e76e-4781-9f9f-6ab6f9964c23'));
+INSERT INTO user_role (user_info_id, role_id)
+VALUES (UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2')),
+       (UUID_TO_BIN('ab587544-2567-48b0-9b15-a7f178071fde'), UUID_TO_BIN('dcb27f3b-e76e-4781-9f9f-6ab6f9964c23'));
