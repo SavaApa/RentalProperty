@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithMockUser(username = "john_doe", password = "password123", roles = "LANDLORD")
+@WithMockUser(username = "john_doe", password = "password123", roles = "ADMINISTRATOR")
 @Sql("/db/drop.sql")
 @Sql("/db/schemaTest.sql")
 @Sql("/db/dataTest.sql")

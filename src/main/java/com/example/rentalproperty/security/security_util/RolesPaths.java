@@ -3,7 +3,7 @@ package com.example.rentalproperty.security.security_util;
 public class RolesPaths {
     public static final String LANDLORD = "LANDLORD";
     public static final String TENANT = "TENANT";
-    public static final String ADMINISTRATOR = "ADMINISTRATOR";
+    public static final String ADMIN = "ADMINISTRATOR";
 
 
     public static final String[] LANDLORD_LIST = {
