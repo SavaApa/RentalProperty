@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -26,9 +27,7 @@ public class Role {
     @Column(name = "role_name")
     private String roleName;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "role_authority")
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<Authority> authorities;
 
     @Override

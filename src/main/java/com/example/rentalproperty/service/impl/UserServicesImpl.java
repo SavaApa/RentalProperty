@@ -2,20 +2,28 @@ package com.example.rentalproperty.service.impl;
 
 import com.example.rentalproperty.dto.UserAfterCreatingDto;
 import com.example.rentalproperty.dto.UserCreateDto;
+import com.example.rentalproperty.entity.Authority;
+import com.example.rentalproperty.entity.Role;
 import com.example.rentalproperty.entity.User;
 import com.example.rentalproperty.entity.UserInfo;
+import com.example.rentalproperty.entity.enums.RoleName;
 import com.example.rentalproperty.exception.TenantDoesntExistException;
 import com.example.rentalproperty.exception.UserDoesntExistException;
 import com.example.rentalproperty.exception.errorMessage.ErrorMessage;
 import com.example.rentalproperty.mapper.UserMapper;
+import com.example.rentalproperty.repository.AuthorityRepository;
+import com.example.rentalproperty.repository.RoleRepository;
 import com.example.rentalproperty.repository.UserInfoRepository;
 import com.example.rentalproperty.repository.UserRepository;
 import com.example.rentalproperty.service.UserService;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Isolation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,6 +33,9 @@ public class UserServicesImpl implements UserService {
     private final UserRepository userRepository;
     private final UserInfoRepository userInfoRepository;
     private final UserMapper userMapper;
+    private final RoleRepository roleRepository;
+    private final AuthorityRepository authorityRepository;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public User getUserById(UUID id) {
@@ -36,23 +47,45 @@ public class UserServicesImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public UserAfterCreatingDto createUser(UserCreateDto userCreateDto) {
-        UserInfo userInfo = userInfoRepository.findByEmail(userCreateDto.getEmail());
-        if (userInfo != null) {
-            throw new RuntimeException("User with email already exists");
+        Optional<User> existingUser = userRepository.findByUserInfoUserName(userCreateDto.getUserName());
+        if (existingUser.isPresent()) {
+            throw new UserDoesntExistException("User with userName: " + userCreateDto.getUserName() + " already exists");
+        }
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName(userCreateDto.getUserName());
+        userInfo.setEmail(userCreateDto.getEmail());
+        userInfo.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+        UserInfo savedUserInfo = userInfoRepository.save(userInfo);
+
+        Role role = roleRepository.findByRoleName(RoleName.ROLE_ADMIN.name());
+        if (role == null) {
+            role = new Role();
+            role.setRoleName(RoleName.ROLE_ADMIN.name());
+            role = roleRepository.save(role);
         }
 
-        User user = userMapper.toEntity(userCreateDto);
-        userInfo = new UserInfo();
-        userInfo.setEmail(userCreateDto.getEmail());
-        userInfo.setPassword(userCreateDto.getPassword());
-        userInfo.setUserName(userMapper.createUserName(userCreateDto));
+        User user = new User();
+        user.setUserInfo(savedUserInfo);
+        savedUserInfo.setUser(user);
+        user.setRole(role);
+        user.setFirstName(userCreateDto.getFirstName());
+        user.setLastName(userCreateDto.getLastName());
+        user.setUserInfo(savedUserInfo);
 
-        user.setUserInfo(userInfo);
-        User userAfterCreating = userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
-        return userMapper.toDto(userAfterCreating);
+        Authority authority = new Authority();
+        authority.setAuthorityName(RoleName.ROLE_ADMIN.name());
+        authority.setRole(role);
+        authority.setUser(user);
+        authorityRepository.save(authority);
+
+        UserAfterCreatingDto userAfterCreationDto = userMapper.toDto(savedUser);
+        userAfterCreationDto.setUserId(String.valueOf(savedUser.getId()));
+
+        return userAfterCreationDto;
     }
 
     @Override

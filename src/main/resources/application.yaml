@@ -12,13 +12,16 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
-    open-in-view: false
 
   liquibase:
-    change-log: classpath:db\changelog\changes\changelog-master.xml
+    change-log: classpath:/db/changelog/changes/changelog-master.xml
 
-  springdoc:
-    api-docs:
-      path: /v3/api-docs
-    swagger-ui:
-      path: /swagger-ui.html
+logging:
+  level:
+    root: INFO
+    com.example.rental_property: DEBUG
+  file:
+    name: rental_property.log
+
+server:
+  port: 8080

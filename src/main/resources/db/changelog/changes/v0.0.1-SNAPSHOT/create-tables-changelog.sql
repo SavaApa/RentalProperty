@@ -17,7 +17,37 @@ CREATE TABLE IF NOT EXISTS tenants
     preference_property VARCHAR(255)
     );
 
-create table properties
+CREATE TABLE IF NOT EXISTS roles
+(
+    r_id      BINARY(16) PRIMARY KEY,
+    role_name VARCHAR(255) NOT NULL
+    );
+
+CREATE TABLE IF NOT EXISTS user_info
+(
+    ui_id     BINARY(16) PRIMARY KEY,
+    user_name VARCHAR(255) NOT NULL,
+    email     VARCHAR(255) NOT NULL,
+    password  VARCHAR(255) NOT NULL,
+    user_id   BINARY(16)
+    );
+
+CREATE TABLE IF NOT EXISTS users
+(
+    u_id         BINARY(16) PRIMARY KEY,
+    first_name   VARCHAR(255) NOT NULL,
+    last_name    VARCHAR(255) NOT NULL,
+    user_info_id BINARY(16)   NOT NULL,
+    tenant_id    BINARY(16),
+    landlord_id  BINARY(16),
+    role_id      BINARY(16),
+    FOREIGN KEY (user_info_id) REFERENCES user_info (ui_id),
+    FOREIGN KEY (tenant_id) REFERENCES tenants (t_id) ON DELETE SET NULL,
+    FOREIGN KEY (landlord_id) REFERENCES landlords (l_id) ON DELETE SET NULL,
+    FOREIGN KEY (role_id) REFERENCES roles (r_id)
+    );
+
+CREATE TABLE IF NOT EXISTS properties
 (
     prop_id       BINARY(16) PRIMARY KEY,
     address       VARCHAR(255),
@@ -31,9 +61,7 @@ create table properties
     tenant_id     BINARY(16),
     FOREIGN KEY (landlord_id) REFERENCES landlords (l_id),
     FOREIGN KEY (tenant_id) REFERENCES tenants (t_id)
-);
-
-
+    );
 
 CREATE TABLE IF NOT EXISTS applications
 (
@@ -73,53 +101,30 @@ CREATE TABLE IF NOT EXISTS payments
     FOREIGN KEY (contract_id) REFERENCES contracts (c_id)
     );
 
-CREATE TABLE IF NOT EXISTS user_info
-(
-    ui_id    BINARY(16) PRIMARY KEY,
-    user_name VARCHAR(255) NOT NULL,
-    email    VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
-    );
-
-CREATE TABLE IF NOT EXISTS users
-(
-    u_id         BINARY(16) PRIMARY KEY,
-    first_name   VARCHAR(255) NOT NULL,
-    last_name    VARCHAR(255) NOT NULL,
-    user_info_id BINARY(16)   NOT NULL,
-    tenant_id    BINARY(16),
-    landlord_id  BINARY(16),
-    FOREIGN KEY (user_info_id) REFERENCES user_info (ui_id),
-    FOREIGN KEY (tenant_id) REFERENCES tenants (t_id) ON DELETE SET NULL,
-    FOREIGN KEY (landlord_id) REFERENCES landlords (l_id) ON DELETE SET NULL
-    );
-
-CREATE TABLE IF NOT EXISTS roles
-(
-    r_id      BINARY(16) PRIMARY KEY,
-    role_name VARCHAR(255) NOT NULL
-    );
-
 CREATE TABLE IF NOT EXISTS authorities
 (
     aut_id         BINARY(16) PRIMARY KEY,
-    authority_name VARCHAR(255) NOT NULL
+    authority_name VARCHAR(255) NOT NULL,
+    role_id        BINARY(16),
+    user_id        BINARY(16),
+    FOREIGN KEY (role_id) REFERENCES roles (r_id),
+    FOREIGN KEY (user_id) REFERENCES users (u_id)
+    );
+
+CREATE TABLE IF NOT EXISTS user_info_role
+(
+    user_info_id BINARY(16) NOT NULL,
+    role_id      BINARY(16) NOT NULL,
+    PRIMARY KEY (user_info_id, role_id),
+    FOREIGN KEY (user_info_id) REFERENCES user_info (ui_id),
+    FOREIGN KEY (role_id) REFERENCES roles (r_id)
     );
 
 CREATE TABLE IF NOT EXISTS role_authority
 (
-    role_id      BINARY(16) REFERENCES roles (r_id),
-    authority_id BINARY(16) REFERENCES authorities (aut_id),
-    PRIMARY KEY (role_id, authority_id),
-    FOREIGN KEY (role_id) REFERENCES roles (r_id)
-    );
-
-CREATE TABLE IF NOT EXISTS user_role
-(
-    user_id BINARY(16) NOT NULL,
     role_id BINARY(16) NOT NULL,
-    PRIMARY KEY (user_id, role_id),
-    FOREIGN KEY (user_id) REFERENCES users (u_id),
-    FOREIGN KEY (role_id) REFERENCES roles (r_id)
-
+    auth_id BINARY(16) NOT NULL,
+    PRIMARY KEY (role_id, auth_id),
+    FOREIGN KEY (role_id) REFERENCES roles (r_id),
+    FOREIGN KEY (auth_id) REFERENCES authorities (aut_id)
     );

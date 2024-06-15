@@ -11,17 +11,15 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
-    @Mapping(target = "userInfo.userName", expression = "java(createUserName(userCreateDto))")
+    @Mapping(target = "firstName", source = "userCreateDto.firstName")
+    @Mapping(target = "lastName", source = "userCreateDto.lastName")
+    @Mapping(target = "userInfo.userName", source = "userCreateDto.userName")
     @Mapping(target = "userInfo.password", source = "userCreateDto.password")
     @Mapping(target = "userInfo.email", source = "userCreateDto.email")
+    @Mapping(target = "id", ignore = true)
     User toEntity(UserCreateDto userCreateDto);
 
-    default String createUserName(UserCreateDto userCreateDto) {
-        return userCreateDto.getFirstName().toLowerCase() + "_" + userCreateDto.getLastName().toLowerCase();
-    }
-
-    @Mapping(target = "password", source = "userInfo.password")
-    @Mapping(target = "userName", source = "userInfo.userName")
+    @Mapping(target = "userId", source = "id")
     UserAfterCreatingDto toDto(User user);
 }
 

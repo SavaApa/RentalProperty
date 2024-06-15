@@ -18,7 +18,4 @@ drop table if exists USERS cascade;
 
 drop table if exists USER_INFO cascade;
 
-drop table if exists ROLE_AUTHORITY cascade;
-
-drop table if exists USER_ROLE cascade;
 

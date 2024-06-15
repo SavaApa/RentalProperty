@@ -10,4 +10,5 @@ public class UserCreateDto {
 
     String email;
     String password;
+    String userName;
 }

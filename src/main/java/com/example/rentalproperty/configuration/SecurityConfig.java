@@ -18,6 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static com.example.rentalproperty.security.security_util.RolesPaths.*;
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -39,19 +42,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/token", "/user/create").permitAll()
-                        .requestMatchers(RolesPaths.ADMIN_LIST).hasRole(RolesPaths.ADMIN)
-                        .requestMatchers(RolesPaths.LANDLORD_LIST).hasRole(RolesPaths.LANDLORD)
-                        .requestMatchers(RolesPaths.TENANT_LIST).hasRole(RolesPaths.TENANT)
-                        .anyRequest().authenticated()
-                )
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults())
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(SWAGGER_LIST).permitAll()
+                        .requestMatchers("/users/registration/create").permitAll()
+                        .requestMatchers(AUTH_LIST).hasAnyRole(ADMIN, TENANT, LANDLORD)
+                        .anyRequest().authenticated())
+
+                .httpBasic(withDefaults())
+                .formLogin(withDefaults())
+                .logout(logoutPage -> logoutPage.logoutSuccessUrl("/")
+                        .deleteCookies("JSESSIONID"))
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.accessDeniedHandler(customAccessDeniedHandler)
-                );
+                        exceptionHandling.accessDeniedHandler(customAccessDeniedHandler));
         return http.build();
     }
 

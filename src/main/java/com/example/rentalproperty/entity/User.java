@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -28,11 +30,6 @@ public class User {
     private String lastName;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_info_id")
-    private UserInfo userInfo;
-
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
@@ -41,6 +38,20 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private Landlord landlord;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @JoinColumn(name = "user_info_id")
+    private UserInfo userInfo;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Authority> authorities = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

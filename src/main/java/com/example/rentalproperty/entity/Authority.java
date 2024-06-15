@@ -26,28 +26,13 @@ public class Authority {
     @Column(name = "authority_name")
     private String authorityName;
 
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @JsonIgnore
-    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Authority authority = (Authority) o;
-        return Objects.equals(id, authority.id) && Objects.equals(authorityName, authority.authorityName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, authorityName);
-    }
-
-    @Override
-    public String toString() {
-        return "Authority{" +
-                "id=" + id +
-                ", authorityName='" + authorityName + '\'' +
-                '}';
-    }
 }

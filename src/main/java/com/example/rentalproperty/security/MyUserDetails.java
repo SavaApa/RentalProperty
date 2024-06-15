@@ -5,12 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
 
-    private final User user;
+    private User user;
 
     public MyUserDetails(User user) {
         this.user = user;
@@ -18,10 +18,9 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getUserInfo().getRoles().stream()
-                .flatMap(role -> role.getAuthorities().stream())
-                .map(authority -> new SimpleGrantedAuthority(authority.getAuthorityName()))
-                .collect(Collectors.toList());
+        return Arrays.stream(user.getRole().getRoleName().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .toList();
     }
 
     @Override

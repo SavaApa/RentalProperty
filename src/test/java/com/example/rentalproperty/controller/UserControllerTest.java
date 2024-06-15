@@ -36,17 +36,14 @@ public class UserControllerTest {
 
     @Test
     public void createUserPositiveTest() throws Exception{
-        UserCreateDto userCreateDto = new UserCreateDto("Andrey", "Bondarenko", "anbond@gmail.com", "password");
+        UserCreateDto userCreateDto = new UserCreateDto("Andrey", "Bondarenko", "anbond@gmail.com", "password", "AndreyBon");
 
         String json = objectMapper.writeValueAsString(userCreateDto);
 
-        MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders.post("/user/create")
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
-                .andReturn();
-
-        Assertions.assertEquals(200, result.getResponse().getStatus());
+                .andExpect(status().isOk());
     }
 
     @Test
