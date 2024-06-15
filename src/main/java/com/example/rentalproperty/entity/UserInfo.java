@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 import java.util.Set;
@@ -32,7 +33,10 @@ public class UserInfo {
     private String password;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_info_role",
+            joinColumns = @JoinColumn(name = "user_info_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @ToString.Exclude
+    private Set<Role> roles;
 }

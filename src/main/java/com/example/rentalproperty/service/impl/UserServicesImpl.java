@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,17 +60,15 @@ public class UserServicesImpl implements UserService {
         userInfo.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
         UserInfo savedUserInfo = userInfoRepository.save(userInfo);
 
-        Role role = roleRepository.findByRoleName(RoleName.ROLE_ADMIN.name());
+        Role role = roleRepository.findByRoleName(RoleName.ROLE_ADMIN);
         if (role == null) {
             role = new Role();
-            role.setRoleName(RoleName.ROLE_ADMIN.name());
+            role.setRoleName(RoleName.ROLE_ADMIN);
             role = roleRepository.save(role);
         }
 
         User user = new User();
         user.setUserInfo(savedUserInfo);
-        savedUserInfo.setUser(user);
-        user.setRole(role);
         user.setFirstName(userCreateDto.getFirstName());
         user.setLastName(userCreateDto.getLastName());
         user.setUserInfo(savedUserInfo);
@@ -78,8 +77,7 @@ public class UserServicesImpl implements UserService {
 
         Authority authority = new Authority();
         authority.setAuthorityName(RoleName.ROLE_ADMIN.name());
-        authority.setRole(role);
-        authority.setUser(user);
+        authority.setRoles(Collections.singleton(role));
         authorityRepository.save(authority);
 
         UserAfterCreatingDto userAfterCreationDto = userMapper.toDto(savedUser);

@@ -40,18 +40,9 @@ public class User {
     private Landlord landlord;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "user_info_id")
     private UserInfo userInfo;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_id")
-    private Role role;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Authority> authorities = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

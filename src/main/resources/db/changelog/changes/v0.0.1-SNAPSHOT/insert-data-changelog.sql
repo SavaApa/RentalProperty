@@ -1,5 +1,5 @@
 INSERT INTO roles (r_id, role_name)
-VALUES (UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'), 'TENANT');
+VALUES (UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'), 'ROLE_TENANT');
 
 INSERT INTO landlords (l_id, num_property, rented_out, num_free)
 VALUES (UUID_TO_BIN('e8240961-836b-43cc-948c-4fb4d2cbcb18'), 3, 2, 1);
@@ -21,14 +21,14 @@ VALUES (UUID_TO_BIN('7e4ab44b-2ef3-46ef-ac38-c00fa7ad36cd'), '2024-04-01', '2025
 INSERT INTO payments (pay_id, amount, payment_date, payment_status, contract_id)
 VALUES (UUID_TO_BIN('c14f6009-46d4-40b6-8671-7d7a4e5db206'), 1200.00, '2024-04-01', 'PAID', UUID_TO_BIN('7e4ab44b-2ef3-46ef-ac38-c00fa7ad36cd'));
 
-INSERT INTO user_info (ui_id, user_name, email, password, user_id)
-VALUES (UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), 'tenant', 'tenant1@example.com', '$2a$12$SL4/YvVvek34tEMIyLE4YechMwFcrESrQnELltzzhHpBleXU8oyq6', UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'));
+INSERT INTO user_info (ui_id, user_name, email, password)
+VALUES (UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), 'tenant', 'tenant1@example.com', '$2a$12$SL4/YvVvek34tEMIyLE4YechMwFcrESrQnELltzzhHpBleXU8oyq6');
 
-INSERT INTO users (u_id, first_name, last_name, user_info_id, tenant_id, landlord_id, role_id)
-VALUES (UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'), 'John', 'Doe', UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), UUID_TO_BIN('193e4a81-38c8-4f18-bdf7-590205283979'), NULL, UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'));
+INSERT INTO users (u_id, first_name, last_name, user_info_id, tenant_id, landlord_id)
+VALUES (UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'), 'John', 'Doe', UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), UUID_TO_BIN('193e4a81-38c8-4f18-bdf7-590205283979'), NULL);
 
-INSERT INTO authorities (aut_id, authority_name, role_id, user_id)
-VALUES (UUID_TO_BIN('d230360d-b081-47a2-96e8-ddbd54b70219'), 'TENANT', UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'), UUID_TO_BIN('590f1736-3040-4827-9847-e4160678671b'));
+INSERT INTO authorities (aut_id, authority_name)
+VALUES (UUID_TO_BIN('d230360d-b081-47a2-96e8-ddbd54b70219'), 'GET');
 
 INSERT INTO user_info_role (user_info_id, role_id)
 VALUES (UUID_TO_BIN('915ffd16-3eaa-4faf-b4fe-52a59ac040aa'), UUID_TO_BIN('afed4fbe-b75c-497c-ad63-b76b7b837ae2'));

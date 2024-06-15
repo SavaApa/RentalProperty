@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@WithMockUser(username = "john_doe", password = "password123", roles = "ADMINISTRATOR")
+@WithMockUser(username = "john_doe", password = "password", roles = "TENANT")
 @Sql("/db/drop.sql")
 @Sql("/db/schemaTest.sql")
 @Sql("/db/dataTest.sql")
@@ -52,7 +52,7 @@ public class UserControllerTest {
         String json = objectMapper.writeValueAsString(user);
 
         MvcResult userResult = mockMvc
-                .perform(MockMvcRequestBuilders.put("/user/update/654cc27a-1082-4e64-86b9-93003c5d2ad2")
+                .perform(MockMvcRequestBuilders.put("/user/update/590f1736-3040-4827-9847-e4160678671b")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andReturn();
@@ -74,7 +74,7 @@ public class UserControllerTest {
     void deleteUserPositiveTest() throws Exception {
         MockHttpServletResponse userDeleteResult = mockMvc
                 .perform(MockMvcRequestBuilders
-                        .delete("/user/delete/654cc27a-1082-4e64-86b9-93003c5d2ad2"))
+                        .delete("/user/delete/590f1736-3040-4827-9847-e4160678671b"))
                 .andExpect(status().isOk()).andReturn().getResponse();
 
         Assertions.assertEquals(userDeleteResult.getStatus(), HttpStatus.OK.value());

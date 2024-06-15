@@ -1,11 +1,13 @@
 package com.example.rentalproperty.entity;
 
 
+import com.example.rentalproperty.entity.enums.RoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -24,10 +26,19 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID role;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role_name")
-    private String roleName;
+    private RoleName roleName;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToMany(mappedBy = "roles")
+    @ToString.Exclude
+    private Set<UserInfo> userInfos;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "role_authority",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "auth_id"))
     private Set<Authority> authorities;
 
     @Override

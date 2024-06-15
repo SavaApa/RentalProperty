@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface RoleRepository extends JpaRepository<Role, UUID> {
 
     @EntityGraph(attributePaths = "authorities")
-    Role findByRoleName(String roleName);
+    Role findByRoleName(RoleName roleName);
 
     Optional<Role> findById(UUID roleId);
 }

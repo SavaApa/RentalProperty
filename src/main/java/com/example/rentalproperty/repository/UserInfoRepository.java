@@ -10,4 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface UserInfoRepository extends JpaRepository<UserInfo, UUID> {
+
+    @EntityGraph(attributePaths = "roles")
+    Optional<UserInfo> findByUserName(String name);
 }

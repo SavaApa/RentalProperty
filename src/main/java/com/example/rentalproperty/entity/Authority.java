@@ -26,13 +26,7 @@ public class Authority {
     @Column(name = "authority_name")
     private String authorityName;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
-
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
+    private Set<Role> roles;
 }
