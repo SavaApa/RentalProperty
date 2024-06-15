@@ -27,7 +27,7 @@ import java.util.UUID;
 public class TenantController {
     private final TenantService tenantService;
 
-    @PreAuthorize("hasAnyRole('TENANT', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('TENANT', 'ADMIN')")
     @GetTenant(path = "/get/{id}")
     public Tenant getTenantById(@UuidFormatChecker @PathVariable("id") UUID id) {
         return tenantService.getTenantById(id);
