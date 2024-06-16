@@ -7,6 +7,7 @@ import com.example.rentalproperty.entity.Role;
 import com.example.rentalproperty.entity.User;
 import com.example.rentalproperty.entity.UserInfo;
 import com.example.rentalproperty.entity.enums.RoleName;
+import com.example.rentalproperty.exception.IdNotFoundException;
 import com.example.rentalproperty.exception.TenantDoesntExistException;
 import com.example.rentalproperty.exception.UserDoesntExistException;
 import com.example.rentalproperty.exception.errorMessage.ErrorMessage;
@@ -16,11 +17,11 @@ import com.example.rentalproperty.repository.RoleRepository;
 import com.example.rentalproperty.repository.UserInfoRepository;
 import com.example.rentalproperty.repository.UserRepository;
 import com.example.rentalproperty.service.UserService;
-import org.springframework.transaction.annotation.Isolation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -104,6 +105,7 @@ public class UserServicesImpl implements UserService {
             if (!Objects.equals(getUser.getLastName(), user.getLastName())) {
                 getUser.setLastName(user.getLastName());
             }
+
             UserInfo userToUpdateInfo = getUser.getUserInfo();
             UserInfo userInfoFromRequest = user.getUserInfo();
             if (userToUpdateInfo != null && userInfoFromRequest != null) {
@@ -119,8 +121,10 @@ public class UserServicesImpl implements UserService {
             }
             userRepository.save(getUser);
             return getUser;
+        } else {
+            throw new IdNotFoundException(ErrorMessage.ID_NOT_FOUND);
         }
-        return null;
     }
 }
+
 

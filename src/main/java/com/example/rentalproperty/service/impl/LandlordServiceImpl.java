@@ -37,7 +37,7 @@ public class LandlordServiceImpl implements LandlordService {
     public void deleteLandlordById(UUID id) {
         if (!landlordRepository.existsById(id)) {
             throw new LandlordDoesntExistException(ErrorMessage.NOT_EXIST);
-        }else{
+        } else {
             landlordRepository.deleteById(id);
         }
     }
@@ -62,19 +62,19 @@ public class LandlordServiceImpl implements LandlordService {
         if (getLandlord != null) {
             if (getLandlord.getNumFree() != landlord.getNumFree()) {
                 getLandlord.setNumFree(landlord.getNumFree());
-                landlordRepository.save(getLandlord);
             }
             if (getLandlord.getNumProperty() != landlord.getNumProperty()) {
                 getLandlord.setNumProperty(landlord.getNumProperty());
-                landlordRepository.save(getLandlord);
             }
             if (getLandlord.getRentedOut() != landlord.getRentedOut()) {
                 getLandlord.setRentedOut(landlord.getRentedOut());
-                landlordRepository.save(landlord);
             }
+            landlordRepository.save(getLandlord);
         } else {
             throw new IdNotFoundException(ErrorMessage.ID_NOT_FOUND);
         }
+
         return getLandlord;
     }
+
 }

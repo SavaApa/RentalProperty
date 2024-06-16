@@ -39,4 +39,16 @@ public class UserInfo {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @ToString.Exclude
     private Set<Role> roles;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserInfo userInfo)) return false;
+        return Objects.equals(userName, userInfo.userName) && Objects.equals(email, userInfo.email) && Objects.equals(password, userInfo.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, email, password);
+    }
 }

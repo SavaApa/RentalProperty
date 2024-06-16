@@ -37,7 +37,7 @@ public class TenantServiceImpl implements TenantService {
     public void deleteTenantById(UUID id) {
         if (!tenantRepository.existsById(id)) {
             throw new TenantDoesntExistException(ErrorMessage.NOT_EXIST);
-        }else{
+        } else {
             tenantRepository.deleteById(id);
         }
     }
@@ -60,29 +60,35 @@ public class TenantServiceImpl implements TenantService {
     public Tenant updateTenant(UUID id, Tenant tenant) {
         Tenant getTenant = getTenantById(id);
         if (getTenant != null) {
+            boolean updated = false;
+
             if (!Objects.equals(getTenant.getPreferenceDistrict(), tenant.getPreferenceDistrict())) {
                 getTenant.setPreferenceDistrict(tenant.getPreferenceDistrict());
-                tenantRepository.save(getTenant);
+                updated = true;
             }
             if (getTenant.getPreferenceNumRoom() != tenant.getPreferenceNumRoom()) {
                 getTenant.setPreferenceNumRoom(tenant.getPreferenceNumRoom());
-                tenantRepository.save(getTenant);
+                updated = true;
             }
             if (!Objects.equals(getTenant.getPreferenceMaxRent(), tenant.getPreferenceMaxRent())) {
                 getTenant.setPreferenceMaxRent(tenant.getPreferenceMaxRent());
-                tenantRepository.save(tenant);
+                updated = true;
             }
             if (getTenant.isPetFriendly() != tenant.isPetFriendly()) {
                 getTenant.setPetFriendly(tenant.isPetFriendly());
-                tenantRepository.save(tenant);
+                updated = true;
             }
             if (getTenant.isParkingRequired() != tenant.isParkingRequired()) {
                 getTenant.setParkingRequired(tenant.isParkingRequired());
-                tenantRepository.save(tenant);
+                updated = true;
             }
             if (getTenant.getPreferenceProperty() != tenant.getPreferenceProperty()) {
                 getTenant.setPreferenceProperty(tenant.getPreferenceProperty());
-                tenantRepository.save(tenant);
+                updated = true;
+            }
+
+            if (updated) {
+                tenantRepository.save(getTenant);
             }
         } else {
             throw new IdNotFoundException(ErrorMessage.ID_NOT_FOUND);

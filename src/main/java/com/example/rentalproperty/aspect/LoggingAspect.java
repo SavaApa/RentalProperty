@@ -26,6 +26,7 @@ public class LoggingAspect {
     @Before("controllerLog()")
     public void doBeforeController(JoinPoint jp) {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
         log.info("NEW REQUEST:\n" +
                         "IP : {}\n" +

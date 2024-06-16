@@ -44,7 +44,7 @@ public class ContractServiceImpl implements ContractService {
     public void deleteContractById(UUID id) {
         if (!contractRepository.existsById(id)) {
             throw new ContractDoesntExistException(ErrorMessage.NOT_EXIST);
-        }else{
+        } else {
             contractRepository.deleteById(id);
         }
     }
@@ -77,22 +77,31 @@ public class ContractServiceImpl implements ContractService {
         Contract contractAfterCreation = contractRepository.save(entity);
         return contractMapper.toDto(contractAfterCreation);
     }
+
     @Override
     @Transactional
     public Contract updateContract(UUID id, Contract contract) {
         Contract getContract = contractRepository.findContractById(id);
-        if(getContract != null){
-            if(getContract.getStartDate() != contract.getStartDate()){
+        if (getContract != null) {
+            boolean changed = false;
+
+            if (!getContract.getStartDate().equals(contract.getStartDate())) {
                 getContract.setStartDate(contract.getStartDate());
-                contractRepository.save(getContract);
+                changed = true;
             }
-            if(getContract.getEndDate() != contract.getEndDate()){
+            if (!getContract.getEndDate().equals(contract.getEndDate())) {
                 getContract.setEndDate(contract.getEndDate());
-                contractRepository.save(getContract);
+                changed = true;
             }
-        }else{
+
+            if (changed) {
+                getContract = contractRepository.save(getContract);
+            }
+        } else {
             throw new IdNotFoundException(ErrorMessage.ID_NOT_FOUND);
         }
         return getContract;
     }
+
+
 }

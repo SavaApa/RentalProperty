@@ -28,22 +28,26 @@ import java.util.UUID;
 public class ContractController {
     private final ContractService contractService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'LANDLORD', 'TENANT')")
     @GetContract(path = "/get/{id}")
     public Contract getContractById(@PathVariable("id") @UuidFormatChecker UUID id) {
         return contractService.getContractById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'LANDLORD', 'TENANT')")
     @DeleteContract(path = "/delete/{id}")
     public ResponseEntity<String> deleteContractId(@PathVariable("id") UUID id) {
         contractService.deleteContractById(id);
         return ResponseEntity.ok("Contract with id " + id + " deleted");
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'TENANT')")
     @CreateContract(path = "/create")
     public ContractAfterCreatingDto createDto(@RequestBody ContractCreateDto contractCreateDto) {
         return contractService.createContract(contractCreateDto);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'LANDLORD', 'TENANT')")
     @ChangeContract(path = "/update/{id}")
     public Contract updateStartDate(@PathVariable("id") UUID id, @RequestBody Contract contract) {
         return contractService.updateContract(id, contract);

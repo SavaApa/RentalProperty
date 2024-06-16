@@ -1,6 +1,5 @@
 package com.example.rentalproperty.annotation;
 
-import com.example.rentalproperty.entity.Landlord;
 import com.example.rentalproperty.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
